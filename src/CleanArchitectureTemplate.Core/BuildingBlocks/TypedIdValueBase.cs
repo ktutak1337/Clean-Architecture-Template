@@ -10,7 +10,7 @@ namespace CleanArchitectureTemplate.Core.BuildingBlocks
         {
             if(value == null || value == Guid.Empty)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Id value cannot be empty!");
             }
 
             Value = value;
