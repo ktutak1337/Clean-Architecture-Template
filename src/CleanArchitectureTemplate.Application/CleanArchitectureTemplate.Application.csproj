@@ -1,11 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CleanArchitectureTemplate.Core\CleanArchitectureTemplate.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Convey" Version="0.4.342" />
+    <PackageReference Include="Convey.CQRS.Commands" Version="0.4.342" />
+    <PackageReference Include="Convey.CQRS.Events" Version="0.4.342" />
+    <PackageReference Include="Convey.CQRS.Queries" Version="0.4.342" />
   </ItemGroup>
   
 </Project>

@@ -31,14 +31,14 @@ namespace CleanArchitectureTemplate.Core.Aggregates
             
         }
 
-        public Order(BuyerId buyerId, Address address, IEnumerable<OrderItem> orderItems, OrderStatus status, decimal totalPrice, int? version = null)
+        public Order(OrderId id, BuyerId buyerId, Address address, IEnumerable<OrderItem> orderItems, OrderStatus status, int? version = null)
         {
-            Id = new OrderId(Guid.NewGuid());
+            Id = id;
             BuyerId = buyerId;
             Address = address;
             Items = orderItems ?? throw new Exception($"Cannot create an empty order."); // TODO: Create a custom exceptions handling mechanism.
             Status = status;
-            TotalPrice = totalPrice;
+            TotalPrice = Items.Sum(item => item.Price);
             Version = version ?? 1;
             CreatedAt = DateTime.UtcNow;
         }
