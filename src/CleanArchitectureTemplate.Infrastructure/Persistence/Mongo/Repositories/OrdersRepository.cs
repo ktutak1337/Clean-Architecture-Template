@@ -22,7 +22,7 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Repositorie
 
            return document?.AsEntity();
         }
-        public async Task<IEnumerable<Order>> BrowseAsync()
+        public Task<IEnumerable<Order>> BrowseAsync()
             => throw new NotImplementedException();
 
         public async Task AddAsync(Order order) 
