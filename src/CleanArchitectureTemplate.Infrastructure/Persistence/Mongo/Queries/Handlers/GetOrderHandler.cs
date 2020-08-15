@@ -1,25 +1,26 @@
+using System;
 using System.Threading.Tasks;
-using AutoMapper;
 using CleanArchitectureTemplate.Application.DTOs;
 using CleanArchitectureTemplate.Application.Queries;
-using CleanArchitectureTemplate.Core.Aggregates;
-using CleanArchitectureTemplate.Core.Repositories;
 using CleanArchitectureTemplate.Infrastructure.Mappings;
 using CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Documents;
 using Convey.CQRS.Queries;
+using Convey.Persistence.MongoDB;
 
 namespace CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Queries.Handlers
 {
     public class GetOrderHandler : IQueryHandler<GetOrder, OrderDto>
     {
-        private readonly IOrdersRepository _repository;
-        private readonly IMapper _mapper;
+        private readonly IMongoRepository<OrderDocument, Guid> _repository;
 
-        public GetOrderHandler(IOrdersRepository repository, IMapper mapper)
-            => (_repository, _mapper) = (repository, mapper);
+        public GetOrderHandler(IMongoRepository<OrderDocument, Guid> repository)
+            => _repository = repository;
 
-        public async Task<OrderDto> HandleAsync(GetOrder query) 
-            => (await _repository.GetAsync(query.Id))
-                .MapSingle<Order, OrderDto>(_mapper);
+        public async Task<OrderDto> HandleAsync(GetOrder query)
+        {
+            var document = await _repository.GetAsync(x => x.Id == query.Id);
+
+            return document?.AsDto();
+        }
     }
 }

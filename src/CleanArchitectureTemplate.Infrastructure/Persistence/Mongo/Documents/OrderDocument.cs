@@ -14,5 +14,6 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Documents
         public decimal TotalPrice { get; set; }
         public DateTime CreatedAt { get; set; }
         public IEnumerable<OrderItemDocument> Items { get; set; }
+        public int Version { get; set; }
     }
 }

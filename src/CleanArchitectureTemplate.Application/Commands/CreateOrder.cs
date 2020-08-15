@@ -9,17 +9,9 @@ namespace CleanArchitectureTemplate.Application.Commands
 {
     public class CreateOrder : ICommand
     {
-        public Guid Id { get; }
-        public Guid BuyerId { get; }
-        public Address Address { get; }
-        public IEnumerable<OrderItem> Items { get; }
-
-        public CreateOrder(Guid buyerId, Address address, IEnumerable<OrderItem> items)
-        {
-            Id = new OrderId(Guid.NewGuid());
-            BuyerId = buyerId;
-            Address = address;
-            Items = items;
-        }
+        public Guid Id { get; set; } = new OrderId(Guid.NewGuid());
+        public Guid BuyerId { get; set; }
+        public Address Address { get; set; }
+        public IEnumerable<OrderItem> Items { get; set; }
     }
 }

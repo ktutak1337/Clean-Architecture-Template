@@ -1,14 +1,16 @@
 using System;
+using System.Collections.Generic;
 
 namespace CleanArchitectureTemplate.Application.DTOs
 {
     public class OrderDto
     {
-        public Guid Id { get; private set; }
-        public Guid BuyerId { get; private set; }
-        public AddressDto Address { get; private set; }
-        public string Status { get; private set; }
-        public decimal TotalPrice { get; private set; }
-        public DateTime CreatedAt { get; private set; }
+        public Guid Id { get; set; }
+        public Guid BuyerId { get; set; }
+        public AddressDto Address { get; set; }
+        public string Status { get; set; }
+        public IEnumerable<OrderItemDto> Items { get; set; }
+        public decimal TotalPrice { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }
