@@ -1,4 +1,3 @@
-using System;
 using CleanArchitectureTemplate.Application;
 using CleanArchitectureTemplate.Infrastructure;
 using Convey;
@@ -7,7 +6,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace CleanArchitectureTemplate.Api
 {
@@ -24,7 +22,9 @@ namespace CleanArchitectureTemplate.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            
+            #if (swagger)
+            services.AddInfrastructure();
+            #endif
             services
                 .AddConvey()
                 .AddApplication()
@@ -49,6 +49,9 @@ namespace CleanArchitectureTemplate.Api
             {
                 endpoints.MapControllers();
             });
+            #if (swagger)
+            app.UseInfrastructure();
+            #endif
         }
     }
 }
