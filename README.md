@@ -4,14 +4,15 @@
 [![NuGet Package](https://img.shields.io/badge/NuGet-1.0.0-blue.svg)](https://www.nuget.org/packages/Clean.Architecture.Template)
 [![GitHub license](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/ktutak1337/Clean-Architecture-Template/blob/master/LICENSE.md)
 
-This is a template for creating a Web API .NET Core projects following the principles of Clean Architecture and Domain-driven design approach. The template is available as a [NuGet package](https://www.nuget.org/packages/Clean.Architecture.Template).
+This is a configurable template for creating a Web API .NET Core projects following the principles of Clean Architecture and Domain-driven design approach. The template is available as a [NuGet package](https://www.nuget.org/packages/Clean.Architecture.Template).
 
 # Installation
 The easiest way to get started with the template is to install it by executing the following command:
 ``` csharp
 ~$ dotnet new --install Clean.Architecture.Template::1.0.0 
 ```
-When that command is executed it will `cleanarch` template appears on the list of available templates for `dotnet new` command.
+When that command is executed it will `cleanarch` template appears on the list of available templates for `dotnet new` command.<br/>
+
 ![cleanarch_installation](https://github.com/ktutak1337/Clean-Architecture-Template/blob/master/assets/cleanarch_installation.png)
 
 # Usage
@@ -24,7 +25,8 @@ After executing this command, the project was created in a new folder named `MyA
 ``` csharp
 ~$ dotnet new cleanarch 
 ```
-The output of running that command is below:
+The output of running that command is below:<br/>
+
 ![cleanarch_sln](https://github.com/ktutak1337/Clean-Architecture-Template/blob/master/assets/cleanarch_sln.png)
 
 ### Template options
@@ -50,7 +52,8 @@ To create a new solution additionally with docker and swagger support, but witho
 ~$ dotnet new cleanarch -n MyAwesomeProject --tests false --docker --swagger
 ```
 
-The output of running that command is below:
+The output of running that command is below:<br/>
+
 ![cleanarch_example](https://github.com/ktutak1337/Clean-Architecture-Template/blob/master/assets/cleanarch_example.png)
 
 # Give a star! :star:
