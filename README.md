@@ -9,7 +9,7 @@ This is a configurable template for creating a Web API .NET Core projects follow
 # Installation
 The easiest way to get started with the template is to install it by executing the following command:
 ``` csharp
-~$ dotnet new --install Clean.Architecture.Template::1.0.0 
+~$ dotnet new --install Clean.Architecture.Template::1.0.0
 ```
 When that command is executed it will `cleanarch` template appears on the list of available templates for `dotnet new` command.<br/>
 
@@ -19,11 +19,11 @@ When that command is executed it will `cleanarch` template appears on the list o
 ### Create project
 To create a new project you can run the following command:
 ``` csharp
-~$ dotnet new cleanarch -n MyAwesomeProject 
+~$ dotnet new cleanarch -n MyAwesomeProject
 ```
 After executing this command, the project was created in a new folder named `MyAwesomeProject` or just create a folder for your project and navigate to it and execute the following command:
 ``` csharp
-~$ dotnet new cleanarch 
+~$ dotnet new cleanarch
 ```
 The output of running that command is below:<br/>
 
@@ -32,7 +32,7 @@ The output of running that command is below:<br/>
 ### Template options
 The `cleanarch` template might have specific additional options you can pass in command. To see what the help output looks like for template execute the following command:
 ``` csharp
-~$ dotnet new cleanarch --help 
+~$ dotnet new cleanarch --help
 ```
 The template has the following additional options:
 
@@ -61,3 +61,17 @@ If you like this project, learned something or you are using it to start your so
 
 # Issues
 If you have discovered a bug or having some issues, please let me know by [reporting a new issue](https://github.com/ktutak1337/Clean-Architecture-Template/issues?state=open).
+
+# Roadmap
+List of features to add:
+
+| Name                     | Status | Release date |
+| ------------------------ | -------- | -------- |
+| SQL Databases support (EF) | todo | - |
+| MongoDB as optional | todo | - |
+| Docker compose | todo | - |
+| Selection of the test framework (NUnit, XUnit)| todo | - |
+| Restore after create     | todo | - |
+| Front-End SPA application | todo | - |
+
+NOTE: If you have a proposal for a new feature or a change to the existing code, please don't hesitate to report it. All proposals will be considered.
