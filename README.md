@@ -38,23 +38,37 @@ The template has the following additional options:
 
 | Options                  | Default (bool) | Description |
 | ------------------------ | -------- | -------- |
-|-d \| --docker | false | Creates Dockerfile, .dockerignore, and appsettings.docker.json files.|
+|-d \| --docker | false | Creates Dockerfile, .dockerignore, and appsettings.docker.json files. |
 |-g \| --git| false | Creates Git repository and .gitignore file. |
 |-gi \| --gitignore | false | Creates .gitignore file. |
-|-p \| --projects| true | Creates projects: Api, Application, Core, and Infrastructure.|
-|-s \| --sln| true | Creates an sln file and add projects to it. |
-|-sw \| --swagger| false | Adds the Swagger documentation. |
-|-t \| --tests| true | Creates test projects: EndToEnd, Integration, and Unit.|
+|-p \| --projects | true | Creates projects: Api, Application, Core, and Infrastructure. |
+|-m \| --mongo | false | If specified, adds MongoDB to the solution. |
+|--no-restore | false | If specified, skips the automatic restore of the project on create. |
+|-s \| --sln | true | Creates an sln file and add projects to it. |
+|-sw \| --swagger | false | Adds the Swagger documentation. |
+|-t \| --tests | true | Creates test projects: EndToEnd, Integration, and Unit. |
+|-xu \| --xunit | false | Creates test projects: EndToEnd, Integration, and Unit. |
 
-#### example
-To create a new solution additionally with docker and swagger support, but without test projects, you can run the following command:
+#### examples
+1. To create a new solution additionally with docker and swagger support, but without test projects, you can run the following command:
 ``` csharp
 ~$ dotnet new cleanarch -n MyAwesomeProject --tests false --docker --swagger
 ```
 
-The output of running that command is below:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The output of running that command is below:<br/>
 
-![cleanarch_example](https://github.com/ktutak1337/Clean-Architecture-Template/blob/master/assets/cleanarch_example.png)
+&nbsp;&nbsp;&nbsp;&nbsp;![cleanarch_example](https://github.com/ktutak1337/Clean-Architecture-Template/blob/master/assets/cleanarch_example.png)
+
+2. To create a new solution additionally with Docker, MongoDB, git init and tests based on XUnit Framework (By default NUnit), but with skips the automatic restore of the project on creating, you can run the following command:
+
+``` csharp
+~$ dotnet new cleanarch -n MyAwesomeProject --docker --mongo --git --xunit --no-restore
+```
+&nbsp;&nbsp;&nbsp;&nbsp;or a shorter version of the above command:
+
+``` csharp
+~$ dotnet new cleanarch -n MyAwesomeProject -d -m --g -xu --no-restore
+```
 
 # Give a star! :star:
 If you like this project, learned something or you are using it to start your solution, please give it a star. Thanks!
@@ -68,10 +82,13 @@ List of features to add:
 | Name                     | Status | Release date |
 | ------------------------ | -------- | -------- |
 | SQL Databases support (EF) | todo | - |
-| MongoDB as optional | todo | - |
+| Redis | todo | - |
+| MongoDB as optional | Completed | - |
+| GraphQL | todo | - |
 | Docker compose | todo | - |
-| Selection of the test framework (NUnit, XUnit)| todo | - |
-| Restore after create     | todo | - |
+| API versioning | todo | - |
+| Restore on create | Completed | - |
+| Selection of the test framework (NUnit, XUnit)| Completed | - |
 | Front-End SPA application | todo | - |
 
 NOTE: If you have a proposal for a new feature or a change to the existing code, please don't hesitate to report it. All proposals will be considered.
