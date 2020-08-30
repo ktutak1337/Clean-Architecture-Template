@@ -26,13 +26,14 @@ namespace CleanArchitectureTemplate.Application.Commands.Handlers
             {
                 throw new Exception($"Order with Id: {command.Id} already exists.");
             }
-            
-            var address = new Address("city", "street", "province", "country", "00-000");
+           
+            var address = new Address("New York", "20 W 34th St", "New York", "United States", "NY 10001");
 
             var items = new List<OrderItem>() 
             {
-                new OrderItem("item", 10, 3.14m),
-                new OrderItem("item2", 2, 2.99m)
+                new OrderItem("ice creams", 2, 4.00m),
+                new OrderItem("Coffee", 2, 2.99m),
+                new OrderItem("Apple pie", 2, 5.49m),
             };
 
             order = new Order(command.Id, command.BuyerId, address, items, OrderStatus.Pending);

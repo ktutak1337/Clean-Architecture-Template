@@ -8,13 +8,15 @@ namespace CleanArchitectureTemplate.Api.Controllers
 {
     public class OrdersController : BaseController
     {
-        public OrdersController(IDispatcher dispatcher) : base(dispatcher)
-        {
-
-        }
+        public OrdersController(IDispatcher dispatcher) 
+            : base(dispatcher) { }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] GetOrder query) 
+            => Select(await Dispatcher.QueryAsync(query));
+
+        [HttpGet]
+        public async Task<IActionResult> Get([FromRoute] GetOrders query) 
             => Select(await Dispatcher.QueryAsync(query));
 
         [HttpPost]

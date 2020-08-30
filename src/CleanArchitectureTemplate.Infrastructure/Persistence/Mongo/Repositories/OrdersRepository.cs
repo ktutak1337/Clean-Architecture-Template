@@ -1,4 +1,6 @@
+#if (mongo)
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CleanArchitectureTemplate.Core.Aggregates;
@@ -17,13 +19,12 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Repositorie
             => _repository = repository;
 
         public async Task<Order> GetAsync(Guid id)
-        {
-           var document = await _repository.GetAsync(id);
+            => (await _repository.GetAsync(id))
+                ?.AsEntity();
 
-           return document?.AsEntity();
-        }
-        public Task<IEnumerable<Order>> BrowseAsync()
-            => throw new NotImplementedException();
+        public async Task<IEnumerable<Order>> BrowseAsync()
+            => (await _repository.FindAsync(_ => true))
+                ?.Select(order => order.AsEntity());
 
         public async Task AddAsync(Order order) 
             => await _repository.AddAsync(order.AsDocument());
@@ -35,3 +36,4 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Repositorie
             => await _repository.DeleteAsync(id);
     }
 }
+#endif
