@@ -1,7 +1,7 @@
 # Clean Architecture Template
 ![Build & Tests](https://github.com/ktutak1337/Clean-Architecture-Template/workflows/Build%20&%20Tests/badge.svg?branch=master)
 [![NuGet Package](https://img.shields.io/badge/.Net%20Core-3.1-blue.svg)](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-[![NuGet Package](https://img.shields.io/badge/NuGet-1.0.0-blue.svg)](https://www.nuget.org/packages/Clean.Architecture.Template)
+[![NuGet Package](https://img.shields.io/badge/NuGet-1.0.23-blue.svg)](https://www.nuget.org/packages/Clean.Architecture.Template)
 [![GitHub license](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/ktutak1337/Clean-Architecture-Template/blob/master/LICENSE.md)
 
 This is a configurable template for creating a Web API .NET Core projects following the principles of Clean Architecture and Domain-driven design approach. The template is available as a [NuGet package](https://www.nuget.org/packages/Clean.Architecture.Template).
@@ -9,7 +9,7 @@ This is a configurable template for creating a Web API .NET Core projects follow
 # Installation
 The easiest way to get started with the template is to install it by executing the following command:
 ``` csharp
-~$ dotnet new --install Clean.Architecture.Template::1.0.0
+~$ dotnet new --install Clean.Architecture.Template::1.0.23
 ```
 When that command is executed it will `cleanarch` template appears on the list of available templates for `dotnet new` command.<br/>
 
@@ -47,7 +47,7 @@ The template has the following additional options:
 |-s \| --sln | true | Creates an sln file and add projects to it. |
 |-sw \| --swagger | false | Adds the Swagger documentation. |
 |-t \| --tests | true | Creates test projects: EndToEnd, Integration, and Unit. |
-|-xu \| --xunit | false | Creates test projects: EndToEnd, Integration, and Unit. |
+|-xu \| --xunit | false | Creates test projects: EndToEnd, Integration, and Unit based on the XUnit Framework. |
 
 #### examples
 1. To create a new solution additionally with docker and swagger support, but without test projects, you can run the following command:
@@ -83,12 +83,12 @@ List of features to add:
 | ------------------------ | -------- | -------- |
 | SQL Databases support (EF) | todo | - |
 | Redis | todo | - |
-| MongoDB as optional | Completed | - |
+| MongoDB as optional | Completed | 2020-09-02 |
 | GraphQL | todo | - |
 | Docker compose | todo | - |
 | API versioning | todo | - |
-| Restore on create | Completed | - |
-| Selection of the test framework (NUnit, XUnit)| Completed | - |
+| Restore on create | Completed | 2020-09-02 |
+| Selection of the test framework (NUnit, XUnit)| Completed | 2020-09-02 |
 | Front-End SPA application | todo | - |
 
 NOTE: If you have a proposal for a new feature or a change to the existing code, please don't hesitate to report it. All proposals will be considered.
