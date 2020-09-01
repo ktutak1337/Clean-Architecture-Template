@@ -7,9 +7,7 @@ namespace CleanArchitectureTemplate.Core.Events
     {
         public OrderItem OrderItem { get; }
 
-        public OrderItemAdded(OrderItem orderItem)
-        {
-            OrderItem = orderItem;
-        }
+        public OrderItemAdded(OrderItem orderItem) 
+            => OrderItem = orderItem;
     }
 }

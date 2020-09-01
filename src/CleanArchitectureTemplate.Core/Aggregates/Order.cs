@@ -56,5 +56,15 @@ namespace CleanArchitectureTemplate.Core.Aggregates
             _items.Add(newItem);
             AddDomainEvent(new OrderItemAdded(newItem));
         }
+
+        public void UpdateOrder(Order order)
+        {
+            BuyerId = order.BuyerId;
+            Address = order.Address;
+            Status = order.Status;
+            TotalPrice = order.TotalPrice;
+
+            AddDomainEvent(new OrderUpdated(order));
+        }
     }
 }

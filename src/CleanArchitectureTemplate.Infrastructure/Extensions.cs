@@ -1,14 +1,23 @@
+#if (mongo)
 using System;
+#endif
 using CleanArchitectureTemplate.Application.Services;
 using CleanArchitectureTemplate.Core.Repositories;
+#if (mongo)
 using CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Documents;
 using CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Repositories;
+#endif
 using CleanArchitectureTemplate.Infrastructure.Services;
+#if (!mongo)
+using CleanArchitectureTemplate.Infrastructure.Repositories;
+#endif
 #if (swagger)
 using CleanArchitectureTemplate.Infrastructure.Swagger;
 #endif
 using Convey;
+#if (mongo)
 using Convey.Persistence.MongoDB;
+#endif
 #if (swagger)
 using Microsoft.AspNetCore.Builder;
 #endif
@@ -26,10 +35,13 @@ namespace CleanArchitectureTemplate.Infrastructure
         {
             builder.Services.AddTransient<IOrdersRepository, OrdersRepository>();
             builder.Services.AddTransient<IDispatcher, Dispatcher>();
-
+            #if (mongo)
             return builder
                 .AddMongo()
                 .AddMongoRepository<OrderDocument, Guid>("orders");
+            #else
+            return builder;
+            #endif 
         }
         
         #if (swagger)
