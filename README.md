@@ -83,6 +83,8 @@ List of features to add:
 | ------------------------ | -------- | -------- |
 | SQL Databases support (EF) | todo | - |
 | Redis | todo | - |
+| Serilog | todo | - |
+| Elasticsearch + Kibana | todo | - |
 | MongoDB as optional | Completed | 2020-09-02 |
 | GraphQL | todo | - |
 | Docker compose | todo | - |
