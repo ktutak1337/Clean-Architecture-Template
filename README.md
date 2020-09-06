@@ -39,6 +39,7 @@ The template has the following additional options:
 | Options                  | Default (bool) | Description |
 | ------------------------ | -------- | -------- |
 |-d \| --docker | false | Creates Dockerfile, .dockerignore, and appsettings.docker.json files. |
+|-dc \| --docker-compose | false | Creates docker-compose scripts for selected infrastructure elements (MongoDB, etc.). The `--docker` option is **required**, otherwise no scripts will be generated. |
 |-g \| --git| false | Creates Git repository and .gitignore file. |
 |-gi \| --gitignore | false | Creates .gitignore file. |
 |-p \| --projects | true | Creates projects: Api, Application, Core, and Infrastructure. |
@@ -84,7 +85,9 @@ List of features to add:
 | SQL Databases support (EF) | todo | - |
 | Redis | todo | - |
 | Serilog | todo | - |
-| Elasticsearch + Kibana | todo | - |
+| Elasticsearch | - | 
+| Kibana | todo | - |
+| SignalR | todo | - |
 | MongoDB as optional | Completed | 2020-09-02 |
 | GraphQL | todo | - |
 | Docker compose | todo | - |
