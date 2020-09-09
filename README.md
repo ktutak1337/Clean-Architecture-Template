@@ -71,6 +71,32 @@ The template has the following additional options:
 ~$ dotnet new cleanarch -n MyAwesomeProject -d -m --g -xu --no-restore
 ```
 
+# How to start the solution?
+The API can be started locally within `/src/your_project_name.Api` directory *(by default it will be available under `https://localhost:5001`)* using the following command:
+``` csharp
+~$ dotnet run
+```
+or by running `./scripts/start.sh` bash script in the **main directory**.
+
+You can also run the API using Docker:
+1. Make sure you are in the **main directory** and run the following command to build your image:
+``` bash
+~$ docker build --tag tag_name .
+```
+2. Run the following command to start a container based on your new image:
+``` bash
+~$ docker run -p 5001:5001 -d --name container_name tag_name
+```
+&nbsp;&nbsp;&nbsp;&nbsp;\**to run the container in the background use `-d` options.*
+
+If you want to start the entire infrastructure (API, MongoDB, Redis, etc. ). The easiest way to run it is by using `docker-compose`. For this case, navigate to `/scripts/compose` and execute the following command:
+``` bash
+~$ docker-compose -f script_name.yml up -d
+```
+&nbsp;&nbsp;&nbsp;&nbsp;\**to run in the background use `-d` options.*
+
+Or just install the entire infrastructure locally on your machine.
+
 # Give a star! :star:
 If you like this project, learned something or you are using it to start your solution, please give it a star. Thanks!
 
@@ -85,13 +111,15 @@ List of features to add:
 | SQL Databases support (EF) | todo | - |
 | Redis | todo | - |
 | Serilog | todo | - |
-| Elasticsearch | - | 
+| Elasticsearch | todo | - |
 | Kibana | todo | - |
 | SignalR | todo | - |
+| OData | todo | - |
 | MongoDB as optional | Completed | 2020-09-02 |
 | GraphQL | todo | - |
-| Docker compose | todo | - |
+| Docker compose: *[**X**] API, [**X**] MongoDB, [ ] Redis, <br/>[ ] Elasticsearch, [ ] Kibana, [ ] Front-End* | on hold | 2020-09-06 |
 | API versioning | todo | - |
+| Error handling | todo | - |
 | Restore on create | Completed | 2020-09-02 |
 | Selection of the test framework (NUnit, XUnit)| Completed | 2020-09-02 |
 | Front-End SPA application | todo | - |
