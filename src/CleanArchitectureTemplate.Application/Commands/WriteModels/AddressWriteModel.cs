@@ -1,8 +1,6 @@
-using CleanArchitectureTemplate.Core.BuildingBlocks;
-
-namespace CleanArchitectureTemplate.Core.ValueObjects
+namespace CleanArchitectureTemplate.Application.Commands.WriteModels
 {
-    public class Address : ValueObject
+    public class AddressWriteModel
     {
         public string City { get; }
         public string Street { get; }
@@ -10,9 +8,7 @@ namespace CleanArchitectureTemplate.Core.ValueObjects
         public string Country { get; }
         public string ZipCode { get; }
 
-        private Address() { }
-
-        public Address(string city, string street, string province, string country, string zipcode)
+        public AddressWriteModel(string city, string street, string province, string country, string zipcode)
         {
             Street = street;
             City = city;
