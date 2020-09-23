@@ -1,9 +1,14 @@
 using System.Linq;
 using CleanArchitectureTemplate.Application.DTOs;
 using CleanArchitectureTemplate.Core.Aggregates;
-#if (mongo)
+#if (mongo || postgres)
 using CleanArchitectureTemplate.Core.Entities;
 using CleanArchitectureTemplate.Core.ValueObjects;
+#endif
+#if (postgres)
+using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Models;
+#endif
+#if (mongo)
 using CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Documents;
 #endif
 
@@ -79,7 +84,75 @@ namespace CleanArchitectureTemplate.Infrastructure.Mappings
                 })
             };
         #endif
-        #if (!mongo)
+        #if (postgres)
+        public static OrderModel AsDatabaseModel(this Order order)
+            => new OrderModel
+            {
+                Id = order.Id,
+                BuyerId = order.BuyerId,
+                Address = new AddressModel
+                {
+                    City = order.Address.City,
+                    Street = order.Address.Street,
+                    Province = order.Address.Province,
+                    Country = order.Address.Country,
+                    ZipCode = order.Address.ZipCode
+                },
+                Status = order.Status,
+                TotalPrice = order.TotalPrice,
+                CreatedAt = order.CreatedAt,
+                Version = order.Version,
+                Items = order.Items.Select(item => new OrderItemModel
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Quantity = item.Quantity,
+                    UnitPrice = item.UnitPrice,
+                    Price = item.Price
+                })
+            };
+
+        public static Order AsEntity(this OrderModel model)
+            => new Order(
+                model.Id,
+                model.BuyerId,
+                new Address(
+                    model.Address.City,
+                    model.Address.Street,
+                    model.Address.Province,
+                    model.Address.Country, 
+                    model.Address.ZipCode),
+                model.Items.Select(item => new OrderItem(item.Name, item.Quantity, item.UnitPrice)),
+                model.Status,
+                model.Version);
+
+        public static OrderDto AsDto(this OrderModel model)
+            => new OrderDto
+            {
+                Id = model.Id,
+                BuyerId = model.BuyerId,
+                Address = new AddressDto
+                {
+                    City = model.Address.City,
+                    Street = model.Address.Street,
+                    Province = model.Address.Province,
+                    Country = model.Address.Country,
+                    ZipCode = model.Address.ZipCode
+                },
+                Status = model.Status.ToString().ToLowerInvariant(),
+                TotalPrice = model.TotalPrice,
+                CreatedAt = model.CreatedAt, 
+                Items = model.Items.Select(item => new OrderItemDto
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Quantity = item.Quantity,
+                    UnitPrice = item.UnitPrice,
+                    Price = item.Price
+                })
+            };
+        #endif
+        #if (!mongo && !postgres)
         public static OrderDto AsDto(this Order order)
             => new OrderDto
             {
