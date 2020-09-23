@@ -1,0 +1,28 @@
+#if (postgres)
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using CleanArchitectureTemplate.Application.DTOs;
+using CleanArchitectureTemplate.Application.Queries;
+using CleanArchitectureTemplate.Infrastructure.Mappings;
+using CleanArchitectureTemplate.Infrastructure.Persistence.EF;
+using CleanArchitectureTemplate.Infrastructure.Persistence.EF.Repositories;
+using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Models;
+using Convey.CQRS.Queries;
+
+namespace CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Queries.Handlers
+{
+    public class GetOrdersHandler : IQueryHandler<GetOrders, IEnumerable<OrderDto>>
+    {
+        private readonly IEntityFrameworkRepository<OrderModel, Guid, CleanArchitectureTemplateDbContext> _repository;
+
+        public GetOrdersHandler(IEntityFrameworkRepository<OrderModel, Guid, CleanArchitectureTemplateDbContext> repository) 
+            => _repository = repository;
+
+        public async Task<IEnumerable<OrderDto>> HandleAsync(GetOrders query)
+            => (await _repository.FindAsync(_ => true))
+                .Select(order => order.AsDto());
+    }
+}
+#endif

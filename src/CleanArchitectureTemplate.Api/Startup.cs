@@ -22,7 +22,7 @@ namespace CleanArchitectureTemplate.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            #if (swagger)
+            #if (swagger || postgres)
             services.AddInfrastructure();
             #endif
             services
