@@ -23,8 +23,6 @@ using Microsoft.AspNetCore.Builder;
 #endif
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres;
 #if (postgres)
 using Microsoft.EntityFrameworkCore;
 using CleanArchitectureTemplate.Infrastructure.Persistence.EF;

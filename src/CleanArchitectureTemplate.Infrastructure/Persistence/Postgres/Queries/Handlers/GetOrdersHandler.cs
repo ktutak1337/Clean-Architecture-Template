@@ -21,7 +21,7 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Queries.
             => _repository = repository;
 
         public async Task<IEnumerable<OrderDto>> HandleAsync(GetOrders query)
-            => (await _repository.FindAsync(_ => true))
+            => (await _repository.FindAsync(_ => true, x => x.Items))
                 .Select(order => order.AsDto());
     }
 }
