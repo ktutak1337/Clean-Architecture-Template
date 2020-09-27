@@ -10,5 +10,6 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Models
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal Price { get; set; }
+        public OrderModel Order { get; set; }
     }
 }

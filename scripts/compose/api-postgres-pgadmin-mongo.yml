@@ -7,6 +7,8 @@ services:
     restart: unless-stopped
     depends_on:
       - mongo
+      - postgres
+      - pgadmin
     ports:
       - '5000:5000'
     networks:

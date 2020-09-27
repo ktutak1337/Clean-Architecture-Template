@@ -20,11 +20,11 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Reposito
             => _repository = repository;
         
         public async Task<Order> GetAsync(Guid id)
-            => (await _repository.GetAsync(id))
+            => (await _repository.GetAsync(id, x => x.Items))
                 ?.AsEntity();
 
         public async Task<IEnumerable<Order>> BrowseAsync()
-            => (await _repository.FindAsync(_ => true))
+            => (await _repository.FindAsync(_ => true, x => x.Items))
                 ?.Select(order => order.AsEntity());
 
         public async Task AddAsync(Order order)
