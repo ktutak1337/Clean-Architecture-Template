@@ -4,8 +4,5 @@ using Convey.CQRS.Queries;
 
 namespace CleanArchitectureTemplate.Application.Queries
 {
-    public class GetOrders : IQuery<IEnumerable<OrderDto>>
-    {
-        
-    }
+    public class GetOrders : IQuery<IEnumerable<OrderDto>> { }
 }

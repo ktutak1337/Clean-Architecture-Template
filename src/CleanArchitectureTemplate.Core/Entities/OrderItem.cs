@@ -11,10 +11,7 @@ namespace CleanArchitectureTemplate.Core.Entities
         public decimal UnitPrice { get; private set; }
         public decimal Price { get; private set; }
 
-        private OrderItem()
-        {
-
-        }
+        private OrderItem() { }
 
         public OrderItem(string name, int quantity, decimal unitPrice)
         {

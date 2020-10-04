@@ -1,9 +1,7 @@
 using Convey.CQRS.Commands;
-using CleanArchitectureTemplate.Application.Commands;
 using CleanArchitectureTemplate.Core.Repositories;
 using System.Threading.Tasks;
 using CleanArchitectureTemplate.Core.Aggregates;
-using System;
 using CleanArchitectureTemplate.Core.ValueObjects;
 using System.Collections.Generic;
 using CleanArchitectureTemplate.Core.Entities;
@@ -38,7 +36,7 @@ namespace CleanArchitectureTemplate.Application.Commands.Handlers
             };
 
             order = new Order(command.Id, command.BuyerId, address, items, OrderStatus.Pending);
-            
+
             await _ordersRepository.AddAsync(order);
         }
     }

@@ -27,10 +27,7 @@ namespace CleanArchitectureTemplate.Core.Aggregates
             private set { _items = new HashSet<OrderItem>(value); }
         }
 
-        private Order()
-        {
-            
-        }
+        private Order() { }
 
         public Order(OrderId id, BuyerId buyerId, Address address, IEnumerable<OrderItem> orderItems, OrderStatus status, int? version = null)
         {

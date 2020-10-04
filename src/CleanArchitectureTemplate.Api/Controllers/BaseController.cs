@@ -13,7 +13,8 @@ namespace CleanArchitectureTemplate.Api.Controllers
             => Dispatcher = dispatcher;
 
         protected IActionResult Select<TData>(TData data)
-            => data is null ? NotFound()
-                            : Ok(data) as IActionResult;
+            where TData: class
+                => data is null ? NotFound()
+                                : Ok(data) as IActionResult;
     }
 }
