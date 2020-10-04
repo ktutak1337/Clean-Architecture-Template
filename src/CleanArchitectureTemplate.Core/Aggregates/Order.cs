@@ -4,6 +4,7 @@ using System.Linq;
 using CleanArchitectureTemplate.Core.BuildingBlocks;
 using CleanArchitectureTemplate.Core.Entities;
 using CleanArchitectureTemplate.Core.Events;
+using CleanArchitectureTemplate.Core.Exceptions;
 using CleanArchitectureTemplate.Core.Types;
 using CleanArchitectureTemplate.Core.ValueObjects;
 
@@ -36,7 +37,7 @@ namespace CleanArchitectureTemplate.Core.Aggregates
             Id = id;
             BuyerId = buyerId;
             Address = address;
-            Items = orderItems ?? throw new Exception($"Cannot create an empty order."); // TODO: Create a custom exceptions handling mechanism.
+            Items = orderItems ?? throw new EmptyOrderItemsException(id);
             Status = status;
             TotalPrice = Items.Sum(item => item.Price);
             Version = version ?? 1;
@@ -49,8 +50,7 @@ namespace CleanArchitectureTemplate.Core.Aggregates
 
             if(!(item is null))
             {
-                // TODO: Create a custom exceptions handling mechanism.
-                throw new Exception($"Order item: {newItem.Id} already exists.");
+                throw new OrderItemAlreadyExistsException(newItem.Id);
             }
 
             _items.Add(newItem);

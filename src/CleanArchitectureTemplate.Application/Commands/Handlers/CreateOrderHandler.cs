@@ -8,6 +8,7 @@ using CleanArchitectureTemplate.Core.ValueObjects;
 using System.Collections.Generic;
 using CleanArchitectureTemplate.Core.Entities;
 using CleanArchitectureTemplate.Core.Types;
+using CleanArchitectureTemplate.Application.Exceptions;
 
 namespace CleanArchitectureTemplate.Application.Commands.Handlers
 {
@@ -24,7 +25,7 @@ namespace CleanArchitectureTemplate.Application.Commands.Handlers
             
             if(!(order is null))
             {
-                throw new Exception($"Order with Id: {command.Id} already exists.");
+                throw new OrderAlreadyExistsException(command.Id);
             }
            
             var address = new Address("New York", "20 W 34th St", "New York", "United States", "NY 10001");
