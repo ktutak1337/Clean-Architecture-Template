@@ -7,6 +7,7 @@ using CleanArchitectureTemplate.Core.Repositories;
 using CleanArchitectureTemplate.Core.ValueObjects;
 using CleanArchitectureTemplate.Core.Entities;
 using CleanArchitectureTemplate.Core.Types;
+using CleanArchitectureTemplate.Infrastructure.Exceptions;
 
 namespace CleanArchitectureTemplate.Infrastructure.Repositories
 {
@@ -45,7 +46,7 @@ namespace CleanArchitectureTemplate.Infrastructure.Repositories
         {
             if (order is null)
             {
-                throw new ArgumentNullException(nameof(order));
+                throw new EmptyOrderException();
             }
 
             _orders.Add(order);
@@ -57,10 +58,16 @@ namespace CleanArchitectureTemplate.Infrastructure.Repositories
         {
             if (order is null)
             {
-                throw new ArgumentNullException(nameof(order));
+                throw new EmptyOrderException();
             }
 
             var existingOrder = _orders.SingleOrDefault(existingOrder => existingOrder.Id == order.Id);
+
+            if(existingOrder is null)
+            {
+                throw new OrderNotFoundException(order.Id);
+            }
+
             existingOrder.UpdateOrder(order);
             
             await Task.CompletedTask;
@@ -72,7 +79,7 @@ namespace CleanArchitectureTemplate.Infrastructure.Repositories
             
             if(order is null)
             {
-                throw new ArgumentNullException(nameof(order));
+                throw new OrderNotFoundException(order.Id);
             }
 
             _orders.Remove(order);

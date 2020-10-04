@@ -1,4 +1,5 @@
 using System;
+using CleanArchitectureTemplate.Core.Exceptions;
 
 namespace CleanArchitectureTemplate.Core.BuildingBlocks
 {
@@ -10,7 +11,7 @@ namespace CleanArchitectureTemplate.Core.BuildingBlocks
         {
             if(value == null || value == Guid.Empty)
             {
-                throw new InvalidOperationException("Id value cannot be empty!");
+                throw new InvalidTypedIdException(value);
             }
 
             Value = value;
