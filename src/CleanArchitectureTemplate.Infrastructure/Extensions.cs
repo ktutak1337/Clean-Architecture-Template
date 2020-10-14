@@ -1,6 +1,4 @@
-#if (mongo || postgres)
 using System;
-#endif
 using CleanArchitectureTemplate.Application.Services;
 using CleanArchitectureTemplate.Core.Repositories;
 #if (mongo)

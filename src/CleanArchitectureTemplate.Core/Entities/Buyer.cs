@@ -1,5 +1,9 @@
 using System;
+#if (shared)
+using CleanArchitectureTemplate.Shared.BuildingBlocks;
+#else
 using CleanArchitectureTemplate.Core.BuildingBlocks;
+#endif
 using CleanArchitectureTemplate.Core.ValueObjects;
 
 namespace CleanArchitectureTemplate.Core.Entities

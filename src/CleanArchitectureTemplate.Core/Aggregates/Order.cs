@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+#if (shared)
+using CleanArchitectureTemplate.Shared.BuildingBlocks;
+#else
 using CleanArchitectureTemplate.Core.BuildingBlocks;
+#endif
 using CleanArchitectureTemplate.Core.Entities;
 using CleanArchitectureTemplate.Core.Events;
 using CleanArchitectureTemplate.Core.Exceptions;

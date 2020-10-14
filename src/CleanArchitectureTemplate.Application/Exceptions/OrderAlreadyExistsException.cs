@@ -1,4 +1,7 @@
 using System;
+#if (shared)
+using ApplicationException = CleanArchitectureTemplate.Shared.Kernel.Exceptions.ApplicationException;
+#endif
 
 namespace CleanArchitectureTemplate.Application.Exceptions
 {

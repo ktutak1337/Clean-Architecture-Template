@@ -1,3 +1,7 @@
+#if (shared)
+using CleanArchitectureTemplate.Shared.Kernel.Exceptions;
+
+#endif
 namespace CleanArchitectureTemplate.Infrastructure.Exceptions
 {
     public class EmptyOrderException : InfrastructureException

@@ -1,4 +1,4 @@
-namespace CleanArchitectureTemplate.Core.BuildingBlocks
+namespace CleanArchitectureTemplate.Shared.BuildingBlocks
 {
     // Marker Interface.
     public interface IDomainEvent { }
