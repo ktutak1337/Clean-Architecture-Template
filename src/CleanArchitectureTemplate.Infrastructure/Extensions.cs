@@ -1,4 +1,6 @@
+#if (swagger || mongo || postgres)
 using System;
+#endif
 using CleanArchitectureTemplate.Application.Services;
 using CleanArchitectureTemplate.Core.Repositories;
 #if (mongo)
@@ -21,14 +23,18 @@ using Microsoft.AspNetCore.Builder;
 #endif
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+#if (shared && postgres)
+using CleanArchitectureTemplate.Shared.Infrastructure.Persistence.EF.Repositories;
+using CleanArchitectureTemplate.Shared.Infrastructure.Persistence.Types;
+#else
+using CleanArchitectureTemplate.Infrastructure.Persistence.EF.Repositories;
+using CleanArchitectureTemplate.Infrastructure.Persistence.Types;
+#endif
 #if (postgres)
 using Microsoft.EntityFrameworkCore;
-using CleanArchitectureTemplate.Infrastructure.Persistence.EF;
-using CleanArchitectureTemplate.Infrastructure.Persistence.EF.Repositories;
 using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres;
 using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Models;
 using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Repositories;
-using CleanArchitectureTemplate.Infrastructure.Persistence.Types;
 #endif
 #if (swagger)
 using Microsoft.OpenApi.Models;
@@ -72,6 +78,7 @@ namespace CleanArchitectureTemplate.Infrastructure
             #endif
             return services;
         }
+        
         #if (postgres)
         public static IServiceCollection AddDatabaseContext<TDatabseContext>(this IServiceCollection services)
             where TDatabseContext : DbContext
@@ -94,6 +101,7 @@ namespace CleanArchitectureTemplate.Infrastructure
             return services;
         }
         #endif
+        
         #if (postgres)
         public static IServiceCollection AddEntityFrameworkRepository<TEntity, TIdentifiable, TDatabseContext>(this IServiceCollection services)
             where TEntity : class, IIdentifiable<TIdentifiable>

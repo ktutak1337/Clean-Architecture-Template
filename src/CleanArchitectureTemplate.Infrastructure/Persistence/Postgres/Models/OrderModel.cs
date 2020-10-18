@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
 using CleanArchitectureTemplate.Core.Types;
+#if (shared && postgres)
+using CleanArchitectureTemplate.Shared.Infrastructure.Persistence.Types;
+#else
 using CleanArchitectureTemplate.Infrastructure.Persistence.Types;
+#endif
 
 namespace CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Models
 {

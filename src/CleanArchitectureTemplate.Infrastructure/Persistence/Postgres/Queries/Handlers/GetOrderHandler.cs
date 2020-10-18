@@ -1,13 +1,16 @@
-#if (postgres)
 using System;
 using System.Threading.Tasks;
 using CleanArchitectureTemplate.Application.DTOs;
 using CleanArchitectureTemplate.Application.Queries;
 using CleanArchitectureTemplate.Infrastructure.Mappings;
-using CleanArchitectureTemplate.Infrastructure.Persistence.EF;
+#if (shared && postgres)
+using CleanArchitectureTemplate.Shared.Infrastructure.Persistence.EF.Repositories;
+#else
 using CleanArchitectureTemplate.Infrastructure.Persistence.EF.Repositories;
+#endif
 using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Models;
 using Convey.CQRS.Queries;
+#if (postgres)
 
 namespace CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Queries.Handlers
 {

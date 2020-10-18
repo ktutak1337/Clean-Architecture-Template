@@ -1,4 +1,3 @@
-#if (postgres)
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +5,13 @@ using System.Threading.Tasks;
 using CleanArchitectureTemplate.Core.Aggregates;
 using CleanArchitectureTemplate.Core.Repositories;
 using CleanArchitectureTemplate.Infrastructure.Mappings;
-using CleanArchitectureTemplate.Infrastructure.Persistence.EF;
+#if (shared && postgres)
+using CleanArchitectureTemplate.Shared.Infrastructure.Persistence.EF.Repositories;
+#else
 using CleanArchitectureTemplate.Infrastructure.Persistence.EF.Repositories;
+#endif
 using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Models;
+#if (postgres)
 
 namespace CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Repositories
 {
