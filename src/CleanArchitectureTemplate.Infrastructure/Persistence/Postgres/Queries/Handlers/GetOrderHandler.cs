@@ -4,12 +4,17 @@ using CleanArchitectureTemplate.Application.DTOs;
 using CleanArchitectureTemplate.Application.Queries;
 using CleanArchitectureTemplate.Infrastructure.Mappings;
 #if (shared && postgres)
+using Convey.CQRS.Queries;
 using CleanArchitectureTemplate.Shared.Infrastructure.Persistence.EF.Repositories;
+using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Models;
 #else
 using CleanArchitectureTemplate.Infrastructure.Persistence.EF.Repositories;
 #endif
+#if (postgres && !shared)
+using CleanArchitectureTemplate.Infrastructure.Persistence.EF;
 using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Models;
 using Convey.CQRS.Queries;
+#endif
 #if (postgres)
 
 namespace CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Queries.Handlers
