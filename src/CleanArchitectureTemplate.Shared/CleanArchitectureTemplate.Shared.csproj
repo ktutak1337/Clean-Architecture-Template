@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Convey" Version="0.4.*" />
+    <PackageReference Include="Convey.CQRS.Commands" Version="0.4.*" />
+    <PackageReference Include="Convey.CQRS.Events" Version="0.4.*" />
+    <PackageReference Include="Convey.CQRS.Queries" Version="0.4.*" />
     <!--#if (postgres)-->
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.4" />

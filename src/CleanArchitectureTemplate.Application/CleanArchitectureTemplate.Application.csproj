@@ -9,10 +9,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Convey" Version="0.4.342" />
-    <PackageReference Include="Convey.CQRS.Commands" Version="0.4.342" />
-    <PackageReference Include="Convey.CQRS.Events" Version="0.4.342" />
-    <PackageReference Include="Convey.CQRS.Queries" Version="0.4.342" />
+    <!--#if (shared)-->
+    <PackageReference Include="Convey" Version="0.4.*" />
+    <PackageReference Include="Convey.CQRS.Commands" Version="0.4.*" />
+    <PackageReference Include="Convey.CQRS.Events" Version="0.4.*" />
+    <PackageReference Include="Convey.CQRS.Queries" Version="0.4.*" />
+    <!--#endif-->
   </ItemGroup>
   
 </Project>

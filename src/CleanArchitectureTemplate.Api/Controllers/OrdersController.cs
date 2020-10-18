@@ -1,7 +1,12 @@
+#if (shared)
+using CleanArchitectureTemplate.Shared.Dispatchers;
+#endif
 using System.Threading.Tasks;
 using CleanArchitectureTemplate.Application.Commands;
 using CleanArchitectureTemplate.Application.Queries;
+#if (!shared)
 using CleanArchitectureTemplate.Application.Services;
+#endif
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitectureTemplate.Api.Controllers

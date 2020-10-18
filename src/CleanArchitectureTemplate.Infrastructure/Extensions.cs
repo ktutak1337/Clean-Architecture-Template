@@ -1,13 +1,17 @@
 #if (swagger || mongo || postgres)
 using System;
 #endif
+#if (!shared)
 using CleanArchitectureTemplate.Application.Services;
+#endif
 using CleanArchitectureTemplate.Core.Repositories;
 #if (mongo)
 using CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Documents;
 using CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Repositories;
 #endif
+#if (!shared)
 using CleanArchitectureTemplate.Infrastructure.Services;
+#endif
 #if (!mongo && !postgres)
 using CleanArchitectureTemplate.Infrastructure.Repositories;
 #endif
@@ -51,7 +55,9 @@ namespace CleanArchitectureTemplate.Infrastructure
             #else
             builder.Services.AddTransient<IOrdersRepository, OrdersRepository>();
             #endif
+            #if (!shared)
             builder.Services.AddTransient<IDispatcher, Dispatcher>();
+            #endif
             #if (mongo)
             return builder
                 .AddMongo()
@@ -101,7 +107,7 @@ namespace CleanArchitectureTemplate.Infrastructure
             return services;
         }
         #endif
-        
+
         #if (postgres)
         public static IServiceCollection AddEntityFrameworkRepository<TEntity, TIdentifiable, TDatabseContext>(this IServiceCollection services)
             where TEntity : class, IIdentifiable<TIdentifiable>
