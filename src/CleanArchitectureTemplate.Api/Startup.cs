@@ -1,5 +1,8 @@
 using CleanArchitectureTemplate.Application;
 using CleanArchitectureTemplate.Infrastructure;
+#if (shared)
+using CleanArchitectureTemplate.Shared;
+#endif
 using Convey;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,6 +24,9 @@ namespace CleanArchitectureTemplate.Api
             services.AddControllers();
             #if (swagger || postgres)
             services.AddInfrastructure();
+            #endif
+            #if (shared)
+            services.AddShared();
             #endif
             services
                 .AddConvey()

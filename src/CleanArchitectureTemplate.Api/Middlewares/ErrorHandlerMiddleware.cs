@@ -1,12 +1,20 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
+#if (shared)
+using CleanArchitectureTemplate.Shared.Kernel.Exceptions;
+#else
 using CleanArchitectureTemplate.Core.Exceptions;
 using CleanArchitectureTemplate.Infrastructure.Exceptions;
+#endif
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+#if (shared)
+using ApplicationException = CleanArchitectureTemplate.Shared.Kernel.Exceptions.ApplicationException;
+#else
 using ApplicationException = CleanArchitectureTemplate.Application.Exceptions.ApplicationException;
+#endif
 
 namespace CleanArchitectureTemplate.Api.Middlewares
 {

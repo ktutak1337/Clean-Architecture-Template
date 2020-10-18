@@ -1,6 +1,6 @@
 using System;
 
-namespace CleanArchitectureTemplate.Core.Exceptions
+namespace CleanArchitectureTemplate.Shared.Kernel.Exceptions
 {
     public class InvalidTypedIdException : DomainException
     {

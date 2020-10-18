@@ -3,5 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+  <!--#if (shared)-->
+  <ItemGroup>
+    <ProjectReference Include="..\CleanArchitectureTemplate.Shared/CleanArchitectureTemplate.Shared.csproj" />
+  </ItemGroup>
+  <!--#endif-->
 
 </Project>

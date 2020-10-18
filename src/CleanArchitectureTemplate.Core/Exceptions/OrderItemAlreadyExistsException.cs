@@ -1,4 +1,7 @@
 using System;
+#if (shared)
+using CleanArchitectureTemplate.Shared.Kernel.Exceptions;
+#endif
 
 namespace CleanArchitectureTemplate.Core.Exceptions
 {

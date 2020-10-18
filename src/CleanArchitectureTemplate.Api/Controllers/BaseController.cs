@@ -1,4 +1,8 @@
+#if (shared)
+using CleanArchitectureTemplate.Shared.Dispatchers;
+#else
 using CleanArchitectureTemplate.Application.Services;
+#endif
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitectureTemplate.Api.Controllers
