@@ -1,7 +1,7 @@
 # Clean Architecture Template
 ![Build & Tests](https://github.com/ktutak1337/Clean-Architecture-Template/workflows/Build%20&%20Tests/badge.svg?branch=master)
 [![NuGet Package](https://img.shields.io/badge/.Net%20Core-3.1-blue.svg)](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-[![NuGet Package](https://img.shields.io/badge/NuGet-1.0.42-blue.svg)](https://www.nuget.org/packages/Clean.Architecture.Template)
+[![NuGet Package](https://img.shields.io/badge/NuGet-1.0.44-blue.svg)](https://www.nuget.org/packages/Clean.Architecture.Template)
 [![GitHub license](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/ktutak1337/Clean-Architecture-Template/blob/master/LICENSE.md)
 
 This is a configurable template for creating a Web API .NET Core projects following the principles of Clean Architecture and Domain-driven design approach. The template is available as a [NuGet package](https://www.nuget.org/packages/Clean.Architecture.Template).
@@ -9,7 +9,7 @@ This is a configurable template for creating a Web API .NET Core projects follow
 # Installation
 The easiest way to get started with the template is to install it by executing the following command:
 ``` csharp
-~$ dotnet new --install Clean.Architecture.Template::1.0.42
+~$ dotnet new --install Clean.Architecture.Template::1.0.44
 ```
 When that command is executed it will `cleanarch` template appears on the list of available templates for `dotnet new` command.<br/>
 
@@ -142,7 +142,7 @@ List of features to add:
 | MongoDB as optional | Completed | 2020-09-02 |
 | GraphQL | todo | - |
 | Docker compose: *[**X**] API, [**X**] MongoDB, [ ] Redis, <br/>[**X**] PostgreSQL,[**X**] PgAdmin, [ ] Elasticsearch, <br/> [ ] Kibana, [ ] Front-End* | on hold | 2020-09-06 [1] <br/> 2020-09-28 [2] |
-| Add Shared project as optional | Completed | 2020-10-18 |
+| Add Shared project as optional | Completed | 2020-10-19 |
 | API versioning | todo | - |
 | Error handling | Completed | 2020-10-05 |
 | Restore on create | Completed | 2020-09-02 |

@@ -28,17 +28,21 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 #if (shared && postgres)
+using Microsoft.EntityFrameworkCore;
 using CleanArchitectureTemplate.Shared.Infrastructure.Persistence.EF.Repositories;
 using CleanArchitectureTemplate.Shared.Infrastructure.Persistence.Types;
-#else
-using CleanArchitectureTemplate.Infrastructure.Persistence.EF.Repositories;
-using CleanArchitectureTemplate.Infrastructure.Persistence.Types;
-#endif
-#if (postgres)
-using Microsoft.EntityFrameworkCore;
 using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres;
 using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Models;
 using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Repositories;
+#endif
+#if (postgres && !shared)
+using Microsoft.EntityFrameworkCore;
+using CleanArchitectureTemplate.Infrastructure.Persistence.EF;
+using CleanArchitectureTemplate.Infrastructure.Persistence.EF.Repositories;
+using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres;
+using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Models;
+using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Repositories;
+using CleanArchitectureTemplate.Infrastructure.Persistence.Types;
 #endif
 #if (swagger)
 using Microsoft.OpenApi.Models;

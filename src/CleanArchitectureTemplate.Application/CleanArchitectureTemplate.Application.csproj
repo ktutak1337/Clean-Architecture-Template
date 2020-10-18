@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!--#if (shared)-->
+    <!--#if (!shared)-->
     <PackageReference Include="Convey" Version="0.4.*" />
     <PackageReference Include="Convey.CQRS.Commands" Version="0.4.*" />
     <PackageReference Include="Convey.CQRS.Events" Version="0.4.*" />
