@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using CleanArchitectureTemplate.Core.Exceptions;
 
 namespace CleanArchitectureTemplate.Core.BuildingBlocks
 {
@@ -20,5 +21,13 @@ namespace CleanArchitectureTemplate.Core.BuildingBlocks
         }
 
         public void ClearEvents() => _domainEvents.Clear();
+
+        protected static void CheckRule(IBusinessRule businessRule)
+        {
+            if (businessRule.IsBroken())
+            {
+                throw new BusinessRuleValidationException(businessRule);
+            }
+        }
     }
 }
