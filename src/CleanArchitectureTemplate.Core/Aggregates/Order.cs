@@ -9,6 +9,7 @@ using CleanArchitectureTemplate.Core.BuildingBlocks;
 using CleanArchitectureTemplate.Core.Entities;
 using CleanArchitectureTemplate.Core.Events;
 using CleanArchitectureTemplate.Core.Exceptions;
+using CleanArchitectureTemplate.Core.Rules;
 using CleanArchitectureTemplate.Core.Types;
 using CleanArchitectureTemplate.Core.ValueObjects;
 
@@ -41,6 +42,10 @@ namespace CleanArchitectureTemplate.Core.Aggregates
             Items = orderItems ?? throw new EmptyOrderItemsException(id);
             Status = status;
             TotalPrice = Items.Sum(item => item.Price);
+            
+            CheckRule(new MinimumAmountOfASingleOrderShouldBeAtLeast10(TotalPrice));
+            CheckRule(new AmountOfASingleOrderCannotExceed100k(TotalPrice));
+
             Version = version ?? 1;
             CreatedAt = DateTime.UtcNow;
         }

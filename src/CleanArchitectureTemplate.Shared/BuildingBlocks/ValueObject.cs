@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using CleanArchitectureTemplate.Shared.Kernel.Exceptions;
 
 namespace CleanArchitectureTemplate.Shared.BuildingBlocks
 {
@@ -89,6 +90,14 @@ namespace CleanArchitectureTemplate.Shared.BuildingBlocks
         {
             var currentHash = value?.GetHashCode() ?? 0;
             return seed * 23 + currentHash;
+        }
+
+        protected static void CheckRule(IBusinessRule businessRule)
+        {
+            if (businessRule.IsBroken())
+            {
+                throw new BusinessRuleValidationException(businessRule);
+            }
         }
     }
 }
