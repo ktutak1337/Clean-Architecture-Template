@@ -9,5 +9,6 @@ namespace CleanArchitectureTemplate.Infrastructure.Swagger
         public string RoutePrefix { get; set; }
         public bool Authorization { get; set; }
         public OAuth2 OAuth2 { get; set; }
+        public bool CommentsEnabled { get; set; }
     }
 }

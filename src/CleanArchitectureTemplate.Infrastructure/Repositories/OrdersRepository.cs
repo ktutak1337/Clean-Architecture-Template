@@ -30,10 +30,10 @@ namespace CleanArchitectureTemplate.Infrastructure.Repositories
                 new Address("Los Angeles", "111 N Hill St", "California", "United States", "CA 90012"), 
                 new List<OrderItem>() 
                 {
-                    new OrderItem("Donut", 4, 0.99m),
+                    new OrderItem("Donut", 6, 0.99m),
                     new OrderItem("Coffee", 2, 2.99m)
                 }, 
-                OrderStatus.Paid)    
+                OrderStatus.Paid)
         };
 
         public async Task<Order> GetAsync(Guid id) 
