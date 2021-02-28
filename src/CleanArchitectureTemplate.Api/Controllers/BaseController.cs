@@ -9,6 +9,9 @@ namespace CleanArchitectureTemplate.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    #if (swagger)
+    [Produces("application/json")]
+    #endif
     public abstract class BaseController : ControllerBase
     {
         protected readonly IDispatcher Dispatcher;

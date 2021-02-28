@@ -46,6 +46,7 @@ using CleanArchitectureTemplate.Infrastructure.Persistence.Types;
 #endif
 #if (swagger)
 using Microsoft.OpenApi.Models;
+using System.IO;
 #endif
 
 namespace CleanArchitectureTemplate.Infrastructure
@@ -137,6 +138,12 @@ namespace CleanArchitectureTemplate.Infrastructure
             {
                 setup.SwaggerDoc(settings.Name, new OpenApiInfo { Title = settings.Title, Version = settings.Version });
                 
+                if(settings.CommentsEnabled)
+                {
+                    var filePath = Path.Combine(System.AppContext.BaseDirectory, "CleanArchitectureTemplate.Api.xml");
+                    setup.IncludeXmlComments(filePath);
+                }
+
                 if (settings.Authorization)
                 {
                     setup.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
