@@ -1,7 +1,8 @@
 # Clean Architecture Template
 ![Build & Tests](https://github.com/ktutak1337/Clean-Architecture-Template/workflows/Build%20&%20Tests/badge.svg?branch=master)
-[![NuGet Package](https://img.shields.io/badge/.Net%20Core-3.1-blue.svg)](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-[![NuGet Package](https://img.shields.io/badge/NuGet-1.0.48-blue.svg)](https://www.nuget.org/packages/Clean.Architecture.Template)
+[![NuGet Package](https://img.shields.io/badge/.NET%20-5.0-blue.svg)](https://dotnet.microsoft.com/download/dotnet-core/5.0)
+[![NuGet Package](https://img.shields.io/badge/.NET%20Core-3.1-blue.svg)](https://dotnet.microsoft.com/download/dotnet-core/3.1)
+[![NuGet Package](https://img.shields.io/badge/NuGet-5.0.0-blue.svg)](https://www.nuget.org/packages/Clean.Architecture.Template)
 [![GitHub license](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/ktutak1337/Clean-Architecture-Template/blob/master/LICENSE.md)
 
 This is a configurable template for creating a Web API .NET Core projects following the principles of Clean Architecture and Domain-driven design approach. The template is available as a [NuGet package](https://www.nuget.org/packages/Clean.Architecture.Template).
@@ -9,7 +10,7 @@ This is a configurable template for creating a Web API .NET Core projects follow
 # Installation
 The easiest way to get started with the template is to install it by executing the following command:
 ``` csharp
-~$ dotnet new --install Clean.Architecture.Template::1.0.48
+~$ dotnet new --install Clean.Architecture.Template::5.0.0
 ```
 When that command is executed it will `cleanarch` template appears on the list of available templates for `dotnet new` command.<br/>
 

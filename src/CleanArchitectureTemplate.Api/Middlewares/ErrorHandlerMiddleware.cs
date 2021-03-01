@@ -9,7 +9,6 @@ using CleanArchitectureTemplate.Infrastructure.Exceptions;
 #endif
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 #if (shared)
 using ApplicationException = CleanArchitectureTemplate.Shared.Kernel.Exceptions.ApplicationException;
 #else
@@ -42,37 +41,22 @@ namespace CleanArchitectureTemplate.Api.Middlewares
             }
         }
 
-        private static Task HandleErrorAsync(HttpContext context, Exception exception)
+        private async static Task HandleErrorAsync(HttpContext context, Exception exception)
         {
-            var errorCode = "Error";
+            var code = "Error";
             var message = exception.Message;
-            var statusCode = HttpStatusCode.BadRequest;
-            
-            switch(exception)
+            var statusCode = 400;
+
+            (code, message) = exception switch
             {
-                case InfrastructureException ex:
-                    errorCode = ex.Code;
-                    message = ex.Message;
-                    break;
+                InfrastructureException ex => (ex.Code, ex.Message),
+                ApplicationException ex => (ex.Code, ex.Message),
+                DomainException ex => (ex.Code, ex.Message),
+                _ => ("Error", "There was an error.")
+            };
 
-                case ApplicationException ex:
-                    errorCode = ex.Code;
-                    message = ex.Message;
-                    break;
-
-                case DomainException ex:
-                    errorCode = ex.Code;
-                    message = ex.Message;
-                    break;
-            }
-
-            var response = new { code = errorCode, message = message };
-            var json = JsonConvert.SerializeObject(response);
-            
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)statusCode;
-
-            return context.Response.WriteAsync(json);
+            context.Response.StatusCode = statusCode;
+            await context.Response.WriteAsJsonAsync(new {code, message});
         }
     }
 }
