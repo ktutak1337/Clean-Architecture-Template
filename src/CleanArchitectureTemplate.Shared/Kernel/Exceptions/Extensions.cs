@@ -1,7 +1,6 @@
-using CleanArchitectureTemplate.Api.Middlewares;
 using Microsoft.AspNetCore.Builder;
 
-namespace CleanArchitectureTemplate.Api
+namespace CleanArchitectureTemplate.Shared.Kernel.Exceptions
 {
     public static class Extensions
     {

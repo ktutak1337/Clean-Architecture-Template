@@ -3,6 +3,7 @@ using CleanArchitectureTemplate.Shared.Dispatchers;
 #endif
 #if (swagger)
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 #endif
 using System.Threading.Tasks;
 using CleanArchitectureTemplate.Application.Commands;
@@ -12,7 +13,6 @@ using CleanArchitectureTemplate.Application.DTOs;
 using CleanArchitectureTemplate.Application.Queries;
 #if (!shared)
 using CleanArchitectureTemplate.Application.Services;
-using Microsoft.AspNetCore.Http;
 #endif
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,9 +20,9 @@ namespace CleanArchitectureTemplate.Api.Controllers
 {
     public class OrdersController : BaseController
     {
-        public OrdersController(IDispatcher dispatcher) 
+        public OrdersController(IDispatcher dispatcher)
             : base(dispatcher) { }
-        
+
         #if (swagger)
         /// <summary>
         /// Returns a single order by `ID`.
@@ -34,9 +34,9 @@ namespace CleanArchitectureTemplate.Api.Controllers
         [ProducesResponseType(typeof(OrderDto), StatusCodes.Status200OK)]
         #endif
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get([FromRoute] GetOrder query) 
+        public async Task<IActionResult> Get([FromRoute] GetOrder query)
             => Select(await Dispatcher.QueryAsync(query));
-        
+
         #if (swagger)
         /// <summary>
         /// Returns a list of orders.
@@ -47,9 +47,9 @@ namespace CleanArchitectureTemplate.Api.Controllers
         [ProducesResponseType(typeof(IEnumerable<OrderDto>), StatusCodes.Status200OK)]
         #endif
         [HttpGet]
-        public async Task<IActionResult> Get([FromRoute] GetOrders query) 
+        public async Task<IActionResult> Get([FromRoute] GetOrders query)
             => Select(await Dispatcher.QueryAsync(query));
-        
+
         #if (swagger)
         /// <summary>
         /// Creates a new order.
@@ -62,7 +62,7 @@ namespace CleanArchitectureTemplate.Api.Controllers
         public async Task<IActionResult> Post(CreateOrder command)
         {
             await Dispatcher.SendAsync(command);
-        
+
             return CreatedAtAction(nameof(Get), new { Id = command.Id }, command.Id);
         }
     }

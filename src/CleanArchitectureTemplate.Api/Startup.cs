@@ -16,15 +16,13 @@ namespace CleanArchitectureTemplate.Api
     {
         public IConfiguration Configuration { get; }
 
-        public Startup(IConfiguration configuration) 
+        public Startup(IConfiguration configuration)
             => Configuration = configuration;
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            #if (swagger || postgres)
             services.AddInfrastructure();
-            #endif
             #if (shared)
             services.AddShared();
             #endif
@@ -41,21 +39,12 @@ namespace CleanArchitectureTemplate.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseErrorHandler();
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
+            app.UseInfrastructure();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-            #if (swagger)
-            app.UseInfrastructure();
-            #endif
         }
     }
 }

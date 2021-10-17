@@ -11,6 +11,17 @@ using CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Repositories;
 #endif
 #if (!shared)
 using CleanArchitectureTemplate.Infrastructure.Services;
+using Microsoft.AspNetCore.Builder;
+using System;
+using Microsoft.AspNetCore.Http;
+using System.Linq;
+using CleanArchitectureTemplate.Infrastructure.Contexts;
+using CleanArchitectureTemplate.Infrastructure.Exceptions.Definition;
+#endif
+#if (shared)
+using CleanArchitectureTemplate.Shared.Kernel.Exceptions;
+using CleanArchitectureTemplate.Shared;
+using CleanArchitectureTemplate.Shared.Contexts;
 #endif
 #if (!mongo && !postgres)
 using CleanArchitectureTemplate.Infrastructure.Repositories;
@@ -53,6 +64,8 @@ namespace CleanArchitectureTemplate.Infrastructure
 {
     public static class Extensions
     {
+        private const string CorrelationIdKey = "correlation-id";
+
         public static IConveyBuilder AddInfrastructure(this IConveyBuilder builder)
         {
             #if (mongo && postgres)
@@ -69,11 +82,12 @@ namespace CleanArchitectureTemplate.Infrastructure
                 .AddMongoRepository<OrderDocument, Guid>("orders");
             #else
             return builder;
-            #endif 
+            #endif
         }
-        
+
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
+            services.AddContext();
             #if (swagger)
             services.AddSwaggerDocs();
             #endif
@@ -89,7 +103,25 @@ namespace CleanArchitectureTemplate.Infrastructure
             #endif
             return services;
         }
-        
+
+        public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
+        {
+            app.UseCorrelationId();
+
+            app.UseErrorHandler();
+        #if (swagger)
+            app.UseSwaggerDocs();
+        #endif
+            app.UseHttpsRedirection();
+
+            app.UseContext();
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            return app;
+        }
         #if (postgres)
         public static IServiceCollection AddDatabaseContext<TDatabseContext>(this IServiceCollection services)
             where TDatabseContext : DbContext
@@ -120,10 +152,6 @@ namespace CleanArchitectureTemplate.Infrastructure
                 => services.AddTransient<IEntityFrameworkRepository<TEntity, TIdentifiable, TDatabseContext>, EntityFrameworkRepository<TEntity, TIdentifiable, TDatabseContext>>();
         #endif
         #if (swagger)
-
-        public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder builder)
-            => builder.UseSwaggerDocs();
-
         public static IServiceCollection AddSwaggerDocs(this IServiceCollection services)
         {
             var settings = services.GetOptions<SwaggerSettings>("swagger");
@@ -137,7 +165,7 @@ namespace CleanArchitectureTemplate.Infrastructure
             return services.AddSwaggerGen(setup =>
             {
                 setup.SwaggerDoc(settings.Name, new OpenApiInfo { Title = settings.Title, Version = settings.Version });
-                
+
                 if(settings.CommentsEnabled)
                 {
                     var filePath = Path.Combine(System.AppContext.BaseDirectory, "CleanArchitectureTemplate.Api.xml");
@@ -194,7 +222,7 @@ namespace CleanArchitectureTemplate.Infrastructure
         {
             var settings = builder.ApplicationServices.GetService<IConfiguration>()
                 .GetOptions<SwaggerSettings>("swagger");
-            
+
             if (!settings.Enabled)
             {
                 return builder;
@@ -212,7 +240,8 @@ namespace CleanArchitectureTemplate.Infrastructure
             });
         }
         #endif
-        public static TModel GetOptions<TModel>(this IConfiguration configuration, string sectionName) 
+
+        public static TModel GetOptions<TModel>(this IConfiguration configuration, string sectionName)
             where TModel : new()
         {
             if (!string.IsNullOrWhiteSpace(sectionName))
@@ -235,8 +264,41 @@ namespace CleanArchitectureTemplate.Infrastructure
                 var configuration = serviceProvider.GetService<IConfiguration>();
                 return configuration.GetOptions<TModel>(sectionName);
             }
-            
+
             return default(TModel);
         }
+        #if (!shared)
+        public static IApplicationBuilder UseCorrelationId(this IApplicationBuilder app)
+            => app.Use((ctx, next) =>
+            {
+                ctx.Items.Add(CorrelationIdKey, Guid.NewGuid());
+                return next();
+            });
+
+        public static Guid? TryGetCorrelationId(this HttpContext context)
+            => context.Items.TryGetValue(CorrelationIdKey, out var id) ? (Guid) id : null;
+
+        public static string GetUserIpAddress(this HttpContext context)
+        {
+            if (context is null)
+            {
+                return string.Empty;
+            }
+
+            var ipAddress = context.Connection.RemoteIpAddress?.ToString();
+
+            if (context.Request.Headers.TryGetValue("x-forwarded-for", out var forwardedFor))
+            {
+                var ipAddresses = forwardedFor.ToString().Split(",", StringSplitOptions.RemoveEmptyEntries);
+
+                if (ipAddresses.Any())
+                {
+                    ipAddress = ipAddresses[0];
+                }
+            }
+
+            return ipAddress ?? string.Empty;
+        }
+        #endif
     }
 }
