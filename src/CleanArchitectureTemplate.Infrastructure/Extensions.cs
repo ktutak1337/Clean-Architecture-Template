@@ -1,6 +1,4 @@
-#if (swagger || mongo || postgres)
 using System;
-#endif
 #if (!shared)
 using CleanArchitectureTemplate.Application.Services;
 #endif
@@ -11,8 +9,6 @@ using CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Repositories;
 #endif
 #if (!shared)
 using CleanArchitectureTemplate.Infrastructure.Services;
-using Microsoft.AspNetCore.Builder;
-using System;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
 using CleanArchitectureTemplate.Infrastructure.Contexts;
@@ -22,20 +18,19 @@ using CleanArchitectureTemplate.Infrastructure.Exceptions.Definition;
 using CleanArchitectureTemplate.Shared.Kernel.Exceptions;
 using CleanArchitectureTemplate.Shared;
 using CleanArchitectureTemplate.Shared.Contexts;
+using CleanArchitectureTemplate.Shared.Swagger;
 #endif
 #if (!mongo && !postgres)
 using CleanArchitectureTemplate.Infrastructure.Repositories;
 #endif
-#if (swagger)
+#if (swagger && !shared)
 using CleanArchitectureTemplate.Infrastructure.Swagger;
 #endif
 using Convey;
 #if (mongo)
 using Convey.Persistence.MongoDB;
 #endif
-#if (swagger)
 using Microsoft.AspNetCore.Builder;
-#endif
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 #if (shared && postgres)
