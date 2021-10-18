@@ -5,24 +5,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Convey" Version="0.5.427" />
-    <PackageReference Include="Convey.CQRS.Commands" Version="0.5.427" />
-    <PackageReference Include="Convey.CQRS.Events" Version="0.5.427" />
-    <PackageReference Include="Convey.CQRS.Queries" Version="0.5.427" />
+    <PackageReference Include="Convey" Version="0.5.512" />
+    <PackageReference Include="Convey.CQRS.Commands" Version="0.5.512" />
+    <PackageReference Include="Convey.CQRS.Events" Version="0.5.512" />
+    <PackageReference Include="Convey.CQRS.Queries" Version="0.5.512" />
     <!--#if (postgres)-->
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.3">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.10">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
     <!--#endif-->
     <!--#if (swagger)-->
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.0.5" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.0.5" />	
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.0.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.2.3" />	
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.2.3" />
     <!--#endif-->
   </ItemGroup>
 
