@@ -1,6 +1,6 @@
 using System;
 #if (shared && postgres)
-using CleanArchitectureTemplate.Shared.Infrastructure.Persistence.Types;
+using CleanArchitectureTemplate.Shared.Persistence.Types;
 #else
 using CleanArchitectureTemplate.Infrastructure.Persistence.Types;
 #endif
@@ -14,6 +14,6 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public AddressModel Address { get; set; }
-        public DateTime CreatedAt { get; set; }        
+        public DateTime CreatedAt { get; set; }
     }
 }

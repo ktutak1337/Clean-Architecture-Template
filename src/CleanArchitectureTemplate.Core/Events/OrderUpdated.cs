@@ -1,6 +1,6 @@
 using CleanArchitectureTemplate.Core.Aggregates;
 #if (shared)
-using CleanArchitectureTemplate.Shared.BuildingBlocks;
+using CleanArchitectureTemplate.Shared.Kernel.BuildingBlocks;
 #else
 using CleanArchitectureTemplate.Core.BuildingBlocks;
 #endif
@@ -11,7 +11,7 @@ namespace CleanArchitectureTemplate.Core.Events
     {
         public Order Order { get; }
 
-        public OrderUpdated(Order order) 
+        public OrderUpdated(Order order)
             => Order = order;
     }
 }

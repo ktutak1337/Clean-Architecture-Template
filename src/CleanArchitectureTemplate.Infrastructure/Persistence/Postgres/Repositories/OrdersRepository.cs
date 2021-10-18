@@ -6,7 +6,7 @@ using CleanArchitectureTemplate.Core.Aggregates;
 using CleanArchitectureTemplate.Core.Repositories;
 using CleanArchitectureTemplate.Infrastructure.Mappings;
 #if (shared && postgres)
-using CleanArchitectureTemplate.Shared.Infrastructure.Persistence.EF.Repositories;
+using CleanArchitectureTemplate.Shared.Persistence.EF.Repositories;
 using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Models;
 #else
 using CleanArchitectureTemplate.Infrastructure.Persistence.EF.Repositories;
@@ -25,7 +25,7 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Reposito
 
         public OrdersRepository(IEntityFrameworkRepository<OrderModel, Guid, CleanArchitectureTemplateDbContext> repository)
             => _repository = repository;
-        
+
         public async Task<Order> GetAsync(Guid id)
             => (await _repository.GetAsync(id, x => x.Items))
                 ?.AsEntity();

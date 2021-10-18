@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using CleanArchitectureTemplate.Core.Types;
 #if (shared && postgres)
-using CleanArchitectureTemplate.Shared.Infrastructure.Persistence.Types;
+using CleanArchitectureTemplate.Shared.Persistence.Types;
 #else
 using CleanArchitectureTemplate.Infrastructure.Persistence.Types;
 #endif

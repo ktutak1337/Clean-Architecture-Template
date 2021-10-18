@@ -9,14 +9,14 @@ namespace CleanArchitectureTemplate.Core.BuildingBlocks
 
         protected TypedIdValueBase(Guid value)
         {
-            if(value == null || value == Guid.Empty)
+            if(value == Guid.Empty)
             {
                 throw new InvalidTypedIdException(value);
             }
 
             Value = value;
         }
-            
+
         public bool Equals(TypedIdValueBase other)
         {
             if (ReferenceEquals(null, other)) return false;
