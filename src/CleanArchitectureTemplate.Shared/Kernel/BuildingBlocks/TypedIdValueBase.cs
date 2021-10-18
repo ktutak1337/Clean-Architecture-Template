@@ -1,7 +1,7 @@
 using System;
-using CleanArchitectureTemplate.Shared.Kernel.Exceptions;
+using CleanArchitectureTemplate.Shared.Exceptions;
 
-namespace CleanArchitectureTemplate.Shared.BuildingBlocks
+namespace CleanArchitectureTemplate.Shared.Kernel.BuildingBlocks
 {
     public class TypedIdValueBase : IEquatable<TypedIdValueBase>
     {
@@ -9,14 +9,14 @@ namespace CleanArchitectureTemplate.Shared.BuildingBlocks
 
         protected TypedIdValueBase(Guid value)
         {
-            if(value == null || value == Guid.Empty)
+            if(value == Guid.Empty)
             {
                 throw new InvalidTypedIdException(value);
             }
 
             Value = value;
         }
-            
+
         public bool Equals(TypedIdValueBase other)
         {
             if (ReferenceEquals(null, other)) return false;

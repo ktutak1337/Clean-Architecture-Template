@@ -1,5 +1,5 @@
 #if (shared)
-using CleanArchitectureTemplate.Shared.BuildingBlocks;
+using CleanArchitectureTemplate.Shared.Kernel.BuildingBlocks;
 #else
 using CleanArchitectureTemplate.Core.BuildingBlocks;
 #endif
@@ -11,7 +11,7 @@ namespace CleanArchitectureTemplate.Core.Events
     {
         public OrderItem OrderItem { get; }
 
-        public OrderItemAdded(OrderItem orderItem) 
+        public OrderItemAdded(OrderItem orderItem)
             => OrderItem = orderItem;
     }
 }

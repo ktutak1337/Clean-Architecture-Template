@@ -1,6 +1,6 @@
 using System;
 #if (shared)
-using CleanArchitectureTemplate.Shared.BuildingBlocks;
+using CleanArchitectureTemplate.Shared.Kernel.BuildingBlocks;
 #else
 using CleanArchitectureTemplate.Core.BuildingBlocks;
 #endif
@@ -9,7 +9,7 @@ namespace CleanArchitectureTemplate.Core
 {
     public sealed class OrderItemId : TypedIdValueBase
     {
-        public OrderItemId(Guid value) 
+        public OrderItemId(Guid value)
             : base(value) { }
 
         public static implicit operator OrderItemId(Guid orderItemId)

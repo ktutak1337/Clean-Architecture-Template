@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 
-namespace CleanArchitectureTemplate.Shared.Kernel.Exceptions
+namespace CleanArchitectureTemplate.Shared.Exceptions
 {
     public static class Extensions
     {

@@ -1,4 +1,4 @@
-namespace CleanArchitectureTemplate.Shared.Infrastructure.Persistence.Types
+namespace CleanArchitectureTemplate.Shared.Persistence.Types
 {
     public interface IIdentifiable<out TEntityId>
     {

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using CleanArchitectureTemplate.Shared.Kernel.Exceptions;
+using CleanArchitectureTemplate.Shared.Exceptions;
 
-namespace CleanArchitectureTemplate.Shared.BuildingBlocks
+namespace CleanArchitectureTemplate.Shared.Kernel.BuildingBlocks
 {
     public abstract class ValueObject
     {
@@ -35,10 +35,10 @@ namespace CleanArchitectureTemplate.Shared.BuildingBlocks
                 : GetProperties().All(p => PropertiesAreEqual(obj, p))
                     && GetFields().All(f => FieldsAreEqual(obj, f));
 
-        private bool PropertiesAreEqual(object obj, PropertyInfo p) 
+        private bool PropertiesAreEqual(object obj, PropertyInfo p)
             => Equals(p.GetValue(this, null), p.GetValue(obj, null));
 
-        private bool FieldsAreEqual(object obj, FieldInfo f) 
+        private bool FieldsAreEqual(object obj, FieldInfo f)
             => Equals(f.GetValue(this), f.GetValue(obj));
 
         private IEnumerable<PropertyInfo> GetProperties()

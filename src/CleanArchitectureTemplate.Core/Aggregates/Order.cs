@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 #if (shared)
-using CleanArchitectureTemplate.Shared.BuildingBlocks;
+using CleanArchitectureTemplate.Shared.Kernel.BuildingBlocks;
 #else
 using CleanArchitectureTemplate.Core.BuildingBlocks;
 #endif
@@ -42,7 +42,7 @@ namespace CleanArchitectureTemplate.Core.Aggregates
             Items = orderItems ?? throw new EmptyOrderItemsException(id);
             Status = status;
             TotalPrice = Items.Sum(item => item.Price);
-            
+
             CheckRule(new MinimumAmountOfASingleOrderShouldBeAtLeast10(TotalPrice));
             CheckRule(new AmountOfASingleOrderCannotExceed100k(TotalPrice));
 

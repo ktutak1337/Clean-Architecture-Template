@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using CleanArchitectureTemplate.Shared.Kernel.Exceptions;
+using CleanArchitectureTemplate.Shared.Exceptions;
 
-namespace CleanArchitectureTemplate.Shared.BuildingBlocks
+namespace CleanArchitectureTemplate.Shared.Kernel.BuildingBlocks
 {
     public abstract class AggregateRoot
     {

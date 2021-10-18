@@ -1,7 +1,7 @@
 #if (!shared)
 using CleanArchitectureTemplate.Infrastructure.Exceptions.Definition;
 #else
-using CleanArchitectureTemplate.Shared.Kernel.Exceptions;
+using CleanArchitectureTemplate.Shared.Exceptions;
 #endif
 
 namespace CleanArchitectureTemplate.Infrastructure.Exceptions

@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using CleanArchitectureTemplate.Shared.Infrastructure.Persistence.Types;
+using CleanArchitectureTemplate.Shared.Persistence.Types;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitectureTemplate.Shared.Infrastructure.Persistence.EF.Repositories
+namespace CleanArchitectureTemplate.Shared.Persistence.EF.Repositories
 {
-    public interface IEntityFrameworkRepository<TEntity, in TIdentifiable, TDatabseContext> 
+    public interface IEntityFrameworkRepository<TEntity, in TIdentifiable, TDatabseContext>
         where TEntity : class, IIdentifiable<TIdentifiable>
         where TDatabseContext : DbContext
     {

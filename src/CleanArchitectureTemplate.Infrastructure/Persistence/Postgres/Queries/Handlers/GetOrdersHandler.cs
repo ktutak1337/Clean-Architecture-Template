@@ -7,7 +7,7 @@ using CleanArchitectureTemplate.Application.Queries;
 using CleanArchitectureTemplate.Infrastructure.Mappings;
 #if (shared && postgres)
 using Convey.CQRS.Queries;
-using CleanArchitectureTemplate.Shared.Infrastructure.Persistence.EF.Repositories;
+using CleanArchitectureTemplate.Shared.Persistence.EF.Repositories;
 using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Models;
 #else
 using CleanArchitectureTemplate.Infrastructure.Persistence.EF.Repositories;
@@ -25,7 +25,7 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Queries.
     {
         private readonly IEntityFrameworkRepository<OrderModel, Guid, CleanArchitectureTemplateDbContext> _repository;
 
-        public GetOrdersHandler(IEntityFrameworkRepository<OrderModel, Guid, CleanArchitectureTemplateDbContext> repository) 
+        public GetOrdersHandler(IEntityFrameworkRepository<OrderModel, Guid, CleanArchitectureTemplateDbContext> repository)
             => _repository = repository;
 
         public async Task<IEnumerable<OrderDto>> HandleAsync(GetOrders query)

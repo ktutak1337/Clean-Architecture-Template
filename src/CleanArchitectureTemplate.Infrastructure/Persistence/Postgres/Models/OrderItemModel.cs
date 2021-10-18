@@ -1,6 +1,6 @@
 using System;
 #if (shared && postgres)
-using CleanArchitectureTemplate.Shared.Infrastructure.Persistence.Types;
+using CleanArchitectureTemplate.Shared.Persistence.Types;
 #else
 using CleanArchitectureTemplate.Infrastructure.Persistence.Types;
 #endif

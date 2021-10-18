@@ -3,6 +3,7 @@ using System.Linq;
 using CleanArchitectureTemplate.Shared.Dispatchers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CleanArchitectureTemplate.Shared
@@ -16,6 +17,33 @@ namespace CleanArchitectureTemplate.Shared
             services.AddTransient<IDispatcher, Dispatcher>();
 
             return services;
+        }
+
+        public static TModel GetOptions<TModel>(this IConfiguration configuration, string sectionName)
+            where TModel : new()
+        {
+            if (!string.IsNullOrWhiteSpace(sectionName))
+            {
+                var model = new TModel();
+                configuration.GetSection(sectionName).Bind(model);
+
+                return model;
+            }
+
+            return default(TModel);
+        }
+
+        public static TModel GetOptions<TModel>(this IServiceCollection services, string sectionName)
+            where TModel : new()
+        {
+            if (!string.IsNullOrWhiteSpace(sectionName))
+            {
+                using var serviceProvider = services.BuildServiceProvider();
+                var configuration = serviceProvider.GetService<IConfiguration>();
+                return configuration.GetOptions<TModel>(sectionName);
+            }
+
+            return default(TModel);
         }
 
         public static IApplicationBuilder UseCorrelationId(this IApplicationBuilder app)

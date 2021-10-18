@@ -1,14 +1,9 @@
-using CleanArchitectureTemplate.Application;
-using CleanArchitectureTemplate.Infrastructure;
-#if (shared)
-using CleanArchitectureTemplate.Shared;
-#endif
-using Convey;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using CleanArchitectureTemplate.Infrastructure;
 
 namespace CleanArchitectureTemplate.Api
 {
@@ -23,13 +18,6 @@ namespace CleanArchitectureTemplate.Api
         {
             services.AddControllers();
             services.AddInfrastructure();
-            #if (shared)
-            services.AddShared();
-            #endif
-            services
-                .AddConvey()
-                .AddApplication()
-                .AddInfrastructure();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

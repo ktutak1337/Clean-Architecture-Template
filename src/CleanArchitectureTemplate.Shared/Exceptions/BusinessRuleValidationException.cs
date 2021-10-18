@@ -1,6 +1,6 @@
-using CleanArchitectureTemplate.Shared.BuildingBlocks;
+using CleanArchitectureTemplate.Shared.Kernel.BuildingBlocks;
 
-namespace CleanArchitectureTemplate.Shared.Kernel.Exceptions
+namespace CleanArchitectureTemplate.Shared.Exceptions
 {
     public class BusinessRuleValidationException : DomainException
     {
@@ -8,7 +8,7 @@ namespace CleanArchitectureTemplate.Shared.Kernel.Exceptions
         public override string Code => BusinessRule.Code;
 
         public BusinessRuleValidationException(IBusinessRule businessRule)
-            : base(businessRule.Message) 
+            : base(businessRule.Message)
                 => BusinessRule = businessRule;
     }
 }

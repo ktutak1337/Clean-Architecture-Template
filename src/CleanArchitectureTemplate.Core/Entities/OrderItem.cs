@@ -1,6 +1,6 @@
 using System;
 #if (shared)
-using CleanArchitectureTemplate.Shared.BuildingBlocks;
+using CleanArchitectureTemplate.Shared.Kernel.BuildingBlocks;
 #else
 using CleanArchitectureTemplate.Core.BuildingBlocks;
 #endif
