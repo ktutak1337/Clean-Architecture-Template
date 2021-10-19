@@ -51,6 +51,7 @@ namespace CleanArchitectureTemplate.Infrastructure
 
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
+            services.AddErrorHandling();
         #if (shared)
             services.AddShared();
         #endif
@@ -97,7 +98,7 @@ namespace CleanArchitectureTemplate.Infrastructure
         {
             app.UseCorrelationId();
 
-            app.UseErrorHandler();
+            app.UseErrorHandling();
 
         #if (swagger)
             app.UseSwaggerDocs();
