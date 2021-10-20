@@ -96,7 +96,9 @@ namespace CleanArchitectureTemplate.Infrastructure.Logging
         {
             var consoleSettings = settings.Console ?? new ConsoleSettings();
             var fileSettings = settings.File ?? new FileSettings();
+        #if (serilogSeq)
             var seqOptions = settings.Seq ?? new SeqSettings();
+        #endif
 
             if (consoleSettings.Enabled)
             {
@@ -113,11 +115,12 @@ namespace CleanArchitectureTemplate.Infrastructure.Logging
 
                 loggerConfiguration.WriteTo.File(path, rollingInterval: interval, outputTemplate: FileOutputTemplate);
             }
-
+        #if (serilogSeq)
             if (seqOptions.Enabled)
             {
                 loggerConfiguration.WriteTo.Seq(seqOptions.Url, apiKey: seqOptions.ApiKey);
             }
+        #endif
         }
 
         private static LogEventLevel GetLogEventLevel(string level)
