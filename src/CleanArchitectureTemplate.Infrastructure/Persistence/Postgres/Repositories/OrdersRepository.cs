@@ -39,9 +39,6 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Reposito
 
         public async Task UpdateAsync(Order order)
             => await _repository.UpdateAsync(order.AsDatabaseModel());
-
-        public async Task DeleteAsync(Guid id)
-            => await _repository.DeleteAsync(id);
     }
 }
 #endif

@@ -3,14 +3,14 @@
 ###
 GET {{url}}
 
-### Create order.
+### Create order. 
 # @name create_order
 POST {{url}}/orders
 Content-Type: application/json
 
 {
   "buyerId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "address": {
+  "ShippingAddress": {
     "city": "New York",
     "street": "20 W 34th St",
     "province": "New York",
@@ -36,10 +36,39 @@ Content-Type: application/json
   ]
 }
 
-@orderId = {{create_order.response.headers.Location}}
+###
+@orderId = {{create_order.response.body.$}}
 
 ### Get order by ID.
 GET {{url}}/orders/{{orderId}}
 
 ### Get list of orders.
 GET {{url}}/orders
+
+### Update a signle order.
+PUT {{url}}/orders/{{orderId}}
+Content-Type: application/json
+
+{
+  "buyerId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "ShippingAddress": {
+    "city": "New York",
+    "street": "20 W 34th St",
+    "province": "New York",
+    "country": "United States",
+    "zipCode": "NY 10001"
+  },
+  "items": [
+    {
+      "name": "Coffee",
+      "quantity": 2,
+      "unitPrice": 3.00
+    },
+    {
+      "name": "Apple pie",
+      "quantity": 2,
+      "unitPrice": 5.49
+    }
+  ],
+  "status": "Pending"
+}

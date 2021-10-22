@@ -9,8 +9,8 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.EF
         public DbSet<OrderModel> Orders { get; set; }
         public DbSet<BuyerModel> Buyers { get; set; }
         public DbSet<OrderItemModel> OrderItems { get; set; }
-        
-        public CleanArchitectureTemplateDbContext(DbContextOptions<CleanArchitectureTemplateDbContext> options) 
+
+        public CleanArchitectureTemplateDbContext(DbContextOptions<CleanArchitectureTemplateDbContext> options)
             : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -20,7 +20,7 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.EF
                 model.ToTable("Order");
                 model.HasKey(x => x.Id);
                 model.HasIndex(x => x.Id);
-                model.OwnsOne(x => x.Address);
+                model.OwnsOne(x => x.ShippingAddress);
                 model.Property<DateTime>("CreatedAt");
             });
 
@@ -29,7 +29,7 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.EF
                 model.ToTable("OrderItem");
                 model.HasKey(x => x.Id);
                 model.HasIndex(x => x.Id);
-                
+
                 model.HasOne(x => x.Order)
                     .WithMany(x => x.Items)
                     .HasForeignKey(x => x.Id)

@@ -11,6 +11,5 @@ namespace CleanArchitectureTemplate.Core.Repositories
         Task<IEnumerable<Order>> BrowseAsync();
         Task AddAsync(Order order);
         Task UpdateAsync(Order order);
-        Task DeleteAsync(Guid id);
     }
 }

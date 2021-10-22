@@ -8,6 +8,7 @@ using CleanArchitectureTemplate.Core.ValueObjects;
 using CleanArchitectureTemplate.Core.Entities;
 using CleanArchitectureTemplate.Core.Types;
 using CleanArchitectureTemplate.Infrastructure.Exceptions;
+using CleanArchitectureTemplate.Application.Exceptions;
 
 namespace CleanArchitectureTemplate.Infrastructure.Repositories
 {
@@ -17,26 +18,26 @@ namespace CleanArchitectureTemplate.Infrastructure.Repositories
         {
             new Order(Guid.NewGuid(),
                 Guid.NewGuid(),
-                new Address("Warsaw", "Złota 44", "Masovia", "Poland", "00-120"), 
-                new List<OrderItem>() 
+                new Address("Warsaw", "Złota 44", "Masovia", "Poland", "00-120"),
+                new List<OrderItem>()
                 {
                     new OrderItem("Milk", 10, 1.99m),
                     new OrderItem("Cheese", 2, 3.49m)
-                }, 
+                },
                 OrderStatus.Paid),
 
             new Order(Guid.NewGuid(),
                 Guid.NewGuid(),
-                new Address("Los Angeles", "111 N Hill St", "California", "United States", "CA 90012"), 
-                new List<OrderItem>() 
+                new Address("Los Angeles", "111 N Hill St", "California", "United States", "CA 90012"),
+                new List<OrderItem>()
                 {
                     new OrderItem("Donut", 6, 0.99m),
                     new OrderItem("Coffee", 2, 2.99m)
-                }, 
+                },
                 OrderStatus.Paid)
         };
 
-        public async Task<Order> GetAsync(Guid id) 
+        public async Task<Order> GetAsync(Guid id)
             => await Task.FromResult(_orders.SingleOrDefault(order => order.Id == id));
 
         public async Task<IEnumerable<Order>> BrowseAsync()
@@ -68,21 +69,7 @@ namespace CleanArchitectureTemplate.Infrastructure.Repositories
                 throw new OrderNotFoundException(order.Id);
             }
 
-            existingOrder.UpdateOrder(order);
-            
-            await Task.CompletedTask;
-        }
-
-        public async Task DeleteAsync(Guid id)
-        {
-            var order = _orders.SingleOrDefault(order => order.Id == id);
-            
-            if(order is null)
-            {
-                throw new OrderNotFoundException(order.Id);
-            }
-
-            _orders.Remove(order);
+            existingOrder = order;
 
             await Task.CompletedTask;
         }
