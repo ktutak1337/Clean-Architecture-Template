@@ -1,4 +1,8 @@
+#if (shared)
+using CleanArchitectureTemplate.Shared.Kernel.BuildingBlocks;
+#else
 using CleanArchitectureTemplate.Core.BuildingBlocks;
+#endif
 using CleanArchitectureTemplate.Core.Exceptions;
 
 namespace CleanArchitectureTemplate.Core.ValueObjects

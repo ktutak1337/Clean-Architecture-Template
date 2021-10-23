@@ -3,8 +3,8 @@ using System;
 using CleanArchitectureTemplate.Shared.Kernel.BuildingBlocks;
 #else
 using CleanArchitectureTemplate.Core.BuildingBlocks;
-using CleanArchitectureTemplate.Core.ValueObjects;
 #endif
+using CleanArchitectureTemplate.Core.ValueObjects;
 
 namespace CleanArchitectureTemplate.Core.Entities
 {

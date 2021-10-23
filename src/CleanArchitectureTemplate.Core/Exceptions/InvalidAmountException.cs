@@ -1,3 +1,7 @@
+#if (shared)
+using CleanArchitectureTemplate.Shared.Exceptions;
+#endif
+
 namespace CleanArchitectureTemplate.Core.Exceptions
 {
     public class InvalidAmountException : DomainException
