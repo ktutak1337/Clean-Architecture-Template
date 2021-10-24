@@ -29,6 +29,9 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <!--#endif-->
+    <!--#if (serilogElastic)-->
+    <PackageReference Include="Serilog.Sinks.ElasticSearch" Version="8.4.1" />
+    <!--#endif-->
     <!--#if (serilogSeq)-->
     <PackageReference Include="Serilog.Sinks.Seq" Version="5.0.1" />
     <!--#endif-->

@@ -10,6 +10,9 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 using Serilog.Filters;
+#if (serilogElastic)
+using Serilog.Sinks.Elasticsearch;
+#endif
 
 namespace CleanArchitectureTemplate.Infrastructure.Logging
 {
@@ -99,6 +102,9 @@ namespace CleanArchitectureTemplate.Infrastructure.Logging
         #if (serilogSeq)
             var seqOptions = settings.Seq ?? new SeqSettings();
         #endif
+        #if (serilogElastic)
+            var elasticSettings = settings.Elastic ?? new ElasticSettings();
+        #endif
 
             if (consoleSettings.Enabled)
             {
@@ -119,6 +125,26 @@ namespace CleanArchitectureTemplate.Infrastructure.Logging
             if (seqOptions.Enabled)
             {
                 loggerConfiguration.WriteTo.Seq(seqOptions.Url, apiKey: seqOptions.ApiKey);
+            }
+        #endif
+
+        #if (serilogElastic)
+            if(elasticSettings.Enabled)
+            {
+                loggerConfiguration.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticSettings.Url))
+                {
+                    AutoRegisterTemplate = true,
+                    AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6,
+                    NumberOfShards = elasticSettings.NumberOfShards ?? 2,
+                    NumberOfReplicas = elasticSettings.NumberOfReplicas ?? 1,
+                    IndexFormat = string.IsNullOrWhiteSpace(elasticSettings.IndexFormat)
+                        ? "logstash-{0:yyyy.MM.dd}"
+                        : elasticSettings.IndexFormat,
+                    ModifyConnectionSettings = connectionConfiguration =>
+                        elasticSettings.BasicAuthEnabled
+                            ? connectionConfiguration.BasicAuthentication(elasticSettings.Username, elasticSettings.Password)
+                            : connectionConfiguration
+                });
             }
         #endif
         }

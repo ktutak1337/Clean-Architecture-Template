@@ -10,6 +10,9 @@ namespace CleanArchitectureTemplate.Infrastructure.Logging.Settings
         #if (serilogSeq)
         public SeqSettings Seq { get; set; }
         #endif
+        #if (serilogElastic)
+        public ElasticSettings Elastic { get; set; }
+        #endif
         public IDictionary<string, string> Overrides { get; set; }
         public IEnumerable<string> ExcludePaths { get; set; }
         public IEnumerable<string> ExcludeProperties { get; set; }
