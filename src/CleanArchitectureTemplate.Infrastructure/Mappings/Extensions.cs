@@ -22,13 +22,13 @@ namespace CleanArchitectureTemplate.Infrastructure.Mappings
             {
                 Id = order.Id,
                 BuyerId = order.BuyerId,
-                Address = new AddressDocument
+                ShippingAddress = new AddressDocument
                 {
-                    City = order.Address.City,
-                    Street = order.Address.Street,
-                    Province = order.Address.Province,
-                    Country = order.Address.Country,
-                    ZipCode = order.Address.ZipCode
+                    City = order.ShippingAddress.City,
+                    Street = order.ShippingAddress.Street,
+                    Province = order.ShippingAddress.Province,
+                    Country = order.ShippingAddress.Country,
+                    ZipCode = order.ShippingAddress.ZipCode
                 },
                 Status = order.Status,
                 TotalPrice = order.TotalPrice,
@@ -49,11 +49,11 @@ namespace CleanArchitectureTemplate.Infrastructure.Mappings
                 document.Id,
                 document.BuyerId,
                 new Address(
-                    document.Address.City,
-                    document.Address.Street,
-                    document.Address.Province,
-                    document.Address.Country, 
-                    document.Address.ZipCode),
+                    document.ShippingAddress.City,
+                    document.ShippingAddress.Street,
+                    document.ShippingAddress.Province,
+                    document.ShippingAddress.Country,
+                    document.ShippingAddress.ZipCode),
                 document.Items.Select(item => new OrderItem(item.Name, item.Quantity, item.UnitPrice)),
                 document.Status,
                 document.Version);
@@ -63,17 +63,17 @@ namespace CleanArchitectureTemplate.Infrastructure.Mappings
             {
                 Id = document.Id,
                 BuyerId = document.BuyerId,
-                Address = new AddressDto
+                ShippingAddress = new AddressDto
                 {
-                    City = document.Address.City,
-                    Street = document.Address.Street,
-                    Province = document.Address.Province,
-                    Country = document.Address.Country,
-                    ZipCode = document.Address.ZipCode
+                    City = document.ShippingAddress.City,
+                    Street = document.ShippingAddress.Street,
+                    Province = document.ShippingAddress.Province,
+                    Country = document.ShippingAddress.Country,
+                    ZipCode = document.ShippingAddress.ZipCode
                 },
                 Status = document.Status.ToString().ToLowerInvariant(),
                 TotalPrice = document.TotalPrice,
-                CreatedAt = document.CreatedAt, 
+                CreatedAt = document.CreatedAt,
                 Items = document.Items.Select(item => new OrderItemDto
                 {
                     Id = item.Id,
@@ -90,13 +90,13 @@ namespace CleanArchitectureTemplate.Infrastructure.Mappings
             {
                 Id = order.Id,
                 BuyerId = order.BuyerId,
-                Address = new AddressModel
+                ShippingAddress = new AddressModel
                 {
-                    City = order.Address.City,
-                    Street = order.Address.Street,
-                    Province = order.Address.Province,
-                    Country = order.Address.Country,
-                    ZipCode = order.Address.ZipCode
+                    City = order.ShippingAddress.City,
+                    Street = order.ShippingAddress.Street,
+                    Province = order.ShippingAddress.Province,
+                    Country = order.ShippingAddress.Country,
+                    ZipCode = order.ShippingAddress.ZipCode
                 },
                 Status = order.Status,
                 TotalPrice = order.TotalPrice,
@@ -117,11 +117,11 @@ namespace CleanArchitectureTemplate.Infrastructure.Mappings
                 model.Id,
                 model.BuyerId,
                 new Address(
-                    model.Address.City,
-                    model.Address.Street,
-                    model.Address.Province,
-                    model.Address.Country, 
-                    model.Address.ZipCode),
+                    model.ShippingAddress.City,
+                    model.ShippingAddress.Street,
+                    model.ShippingAddress.Province,
+                    model.ShippingAddress.Country,
+                    model.ShippingAddress.ZipCode),
                 model.Items.Select(item => new OrderItem(item.Name, item.Quantity, item.UnitPrice)),
                 model.Status,
                 model.Version);
@@ -131,17 +131,17 @@ namespace CleanArchitectureTemplate.Infrastructure.Mappings
             {
                 Id = model.Id,
                 BuyerId = model.BuyerId,
-                Address = new AddressDto
+                ShippingAddress = new AddressDto
                 {
-                    City = model.Address.City,
-                    Street = model.Address.Street,
-                    Province = model.Address.Province,
-                    Country = model.Address.Country,
-                    ZipCode = model.Address.ZipCode
+                    City = model.ShippingAddress.City,
+                    Street = model.ShippingAddress.Street,
+                    Province = model.ShippingAddress.Province,
+                    Country = model.ShippingAddress.Country,
+                    ZipCode = model.ShippingAddress.ZipCode
                 },
                 Status = model.Status.ToString().ToLowerInvariant(),
                 TotalPrice = model.TotalPrice,
-                CreatedAt = model.CreatedAt, 
+                CreatedAt = model.CreatedAt,
                 Items = model.Items.Select(item => new OrderItemDto
                 {
                     Id = item.Id,
@@ -158,17 +158,17 @@ namespace CleanArchitectureTemplate.Infrastructure.Mappings
             {
                 Id = order.Id,
                 BuyerId = order.BuyerId,
-                Address = new AddressDto
+                ShippingAddress = new AddressDto
                 {
-                    City = order.Address.City,
-                    Street = order.Address.Street,
-                    Province = order.Address.Province,
-                    Country = order.Address.Country,
-                    ZipCode = order.Address.ZipCode
+                    City = order.ShippingAddress.City,
+                    Street = order.ShippingAddress.Street,
+                    Province = order.ShippingAddress.Province,
+                    Country = order.ShippingAddress.Country,
+                    ZipCode = order.ShippingAddress.ZipCode
                 },
                 Status = order.Status.ToString().ToLowerInvariant(),
                 TotalPrice = order.TotalPrice,
-                CreatedAt = order.CreatedAt, 
+                CreatedAt = order.CreatedAt,
                 Items = order.Items.Select(item => new OrderItemDto
                 {
                     Id = item.Id,

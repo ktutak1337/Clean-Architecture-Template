@@ -1,26 +1,27 @@
 using System;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
 namespace CleanArchitectureTemplate.Shared.Exceptions
 {
-    public class ErrorHandlerMiddleware
+    public class ErrorHandlerMiddleware : IMiddleware
     {
-        private readonly RequestDelegate _next;
+        private readonly IExceptionCompositionRoot _exceptionCompositionRoot;
         private readonly ILogger<ErrorHandlerMiddleware> _logger;
 
-        public ErrorHandlerMiddleware(RequestDelegate next, ILoggerFactory loggerFactory)
+        public ErrorHandlerMiddleware(IExceptionCompositionRoot exceptionCompositionRoot, ILoggerFactory loggerFactory)
         {
-            _next = next ?? throw new ArgumentNullException(nameof(next));
+            _exceptionCompositionRoot = exceptionCompositionRoot;
             _logger = loggerFactory?.CreateLogger<ErrorHandlerMiddleware>() ?? throw new ArgumentNullException(nameof(loggerFactory));
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
             {
-                await _next(context);
+                await next(context);
             }
             catch (Exception exception)
             {
@@ -29,22 +30,18 @@ namespace CleanArchitectureTemplate.Shared.Exceptions
             }
         }
 
-        private async static Task HandleErrorAsync(HttpContext context, Exception exception)
+        private async Task HandleErrorAsync(HttpContext context, Exception exception)
         {
-            var code = "Error";
-            var message = exception.Message;
-            var statusCode = 400;
+            var errorResponse = _exceptionCompositionRoot.Map(exception);
+            context.Response.StatusCode = (int) (errorResponse?.StatusCode ?? HttpStatusCode.InternalServerError);
+            var response = errorResponse?.Response;
 
-            (code, message) = exception switch
+            if (response is null)
             {
-                InfrastructureException ex => (ex.Code, ex.Message),
-                ApplicationException ex => (ex.Code, ex.Message),
-                DomainException ex => (ex.Code, ex.Message),
-                _ => ("Error", "There was an error.")
-            };
+                return;
+            }
 
-            context.Response.StatusCode = statusCode;
-            await context.Response.WriteAsJsonAsync(new {code, message});
+            await context.Response.WriteAsJsonAsync(response);
         }
     }
 }

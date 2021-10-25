@@ -9,7 +9,7 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Documents
     {
         public Guid Id { get; set; }
         public Guid BuyerId { get; set; }
-        public AddressDocument Address { get; set; }
+        public AddressDocument ShippingAddress { get; set; }
         public OrderStatus Status { get; set; }
         public decimal TotalPrice { get; set; }
         public DateTime CreatedAt { get; set; }

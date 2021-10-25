@@ -21,6 +21,12 @@ using CleanArchitectureTemplate.Shared;
 using CleanArchitectureTemplate.Shared.Contexts;
 using CleanArchitectureTemplate.Shared.Swagger;
 #endif
+#if (!shared && serilog)
+using CleanArchitectureTemplate.Infrastructure.Logging;
+#endif
+#if (shared && serilog)
+using CleanArchitectureTemplate.Shared.Logging;
+#endif
 #if (!mongo && !postgres)
 using CleanArchitectureTemplate.Infrastructure.Repositories;
 #endif
@@ -51,6 +57,7 @@ namespace CleanArchitectureTemplate.Infrastructure
 
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
+            services.AddErrorHandling();
         #if (shared)
             services.AddShared();
         #endif
@@ -69,6 +76,8 @@ namespace CleanArchitectureTemplate.Infrastructure
                 .AddConvey()
                 .AddApplication()
                 .AddInfrastructure();
+
+            services.AddSingleton(services.GetOptions<AppSettings>("app"));
 
             return services;
         }
@@ -97,7 +106,7 @@ namespace CleanArchitectureTemplate.Infrastructure
         {
             app.UseCorrelationId();
 
-            app.UseErrorHandler();
+            app.UseErrorHandling();
 
         #if (swagger)
             app.UseSwaggerDocs();
@@ -107,6 +116,10 @@ namespace CleanArchitectureTemplate.Infrastructure
 
             app.UseContext();
 
+        #if (serilog)
+            app.UseLogging();
+        #endif
+        
             app.UseRouting();
 
             app.UseAuthorization();

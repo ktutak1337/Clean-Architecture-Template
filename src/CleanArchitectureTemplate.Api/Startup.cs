@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using CleanArchitectureTemplate.Infrastructure;
+using Microsoft.AspNetCore.Http;
 
 namespace CleanArchitectureTemplate.Api
 {
@@ -22,15 +22,11 @@ namespace CleanArchitectureTemplate.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
             app.UseInfrastructure();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapGet("/",  context => context.Response.WriteAsync("Hello Mario, the princess is in another castle!"));
                 endpoints.MapControllers();
             });
         }

@@ -2,7 +2,7 @@
 ![Build & Tests](https://github.com/ktutak1337/Clean-Architecture-Template/workflows/Build%20&%20Tests/badge.svg?branch=master)
 [![NuGet Package](https://img.shields.io/badge/.NET%20-5.0-blue.svg)](https://dotnet.microsoft.com/download/dotnet-core/5.0)
 [![NuGet Package](https://img.shields.io/badge/.NET%20Core-3.1-blue.svg)](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-[![NuGet Package](https://img.shields.io/badge/NuGet-5.0.6-blue.svg)](https://www.nuget.org/packages/Clean.Architecture.Template)
+[![NuGet Package](https://img.shields.io/badge/NuGet-5.0.14-blue.svg)](https://www.nuget.org/packages/Clean.Architecture.Template)
 [![GitHub license](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/ktutak1337/Clean-Architecture-Template/blob/master/LICENSE.md)
 
 This is a configurable template for creating .NET Core Web API projects following the principles of Clean Architecture and Domain-driven design approach. The template is available as a [NuGet package](https://www.nuget.org/packages/Clean.Architecture.Template).
@@ -10,7 +10,7 @@ This is a configurable template for creating .NET Core Web API projects followin
 # Installation
 The easiest way to get started with the template is to install it by executing the following command:
 ``` csharp
-~$ dotnet new --install Clean.Architecture.Template::5.0.6
+~$ dotnet new --install Clean.Architecture.Template::5.0.14
 ```
 When that command is executed, the `cleanarch` template will appear on the list of available templates for the `dotnet new` command.<br/>
 
@@ -49,7 +49,10 @@ The template has the following additional options:
 |-m \| --mongo | false | If specified, adds MongoDB to the solution. |
 |--no-restore | false | If specified, skips the automatic restore of the project on create. |
 |-s \| --shared | false | If specified, creates shared project. |
-|-sl \| --sln | true | Creates an sln file and add projects to it. |
+|-sl \| --serilog | false | If specified, adds Serilog configuration for Console and File sliks. |
+|-sl-elastic \| --serilog-elastic | false | If specified, adds Serilog sinks for the Elasticsearch and required docker configuration for it. The --serilog option is required, otherwise no configuration will be generated. |
+|-sl-seq \| --serilog-seq | false | If specified, adds Serilog sinks for the Seq and required docker configuration for it. The --serilog option is required, otherwise no configuration will be generated. |
+|--sln | true | Creates an sln file and add projects to it. |
 |-sw \| --swagger | false | Adds the Swagger documentation. |
 |-t \| --tests | true | Creates test projects: EndToEnd, Integration, and Unit. |
 |-xu \| --xunit | false | Creates test projects: EndToEnd, Integration, and Unit based on the XUnit Framework. |
@@ -134,21 +137,27 @@ List of features to add:
 
 | Name                     | Status | Release date |
 | ------------------------ | -------- | -------- |
-| SQL Databases support (EF): [**X**] PostgreSQL,<br/> [ ] MS SQL Server | on hold | 2020-09-28 |
-| Redis | todo | - |
-| Serilog | todo | - |
-| Elasticsearch | todo | - |
-| Kibana | todo | - |
-| SignalR | todo | - |
-| OData | todo | - |
-| MongoDB as optional | Completed | 2020-09-02 |
-| GraphQL | todo | - |
-| Docker compose: *[**X**] API, [**X**] MongoDB, [ ] Redis, <br/>[**X**] PostgreSQL,[**X**] PgAdmin, [ ] Elasticsearch, <br/> [ ] Kibana, [ ] Front-End* | on hold | 2020-09-06 [1] <br/> 2020-09-28 [2] |
-| Add Shared project as optional | Completed | 2020-10-19 |
 | API versioning | todo | - |
-| Error handling | Completed | 2020-10-05 |
-| Restore on create | Completed | 2020-09-02 |
+| Elasticsearch | todo | - |
+| GraphQL | todo | - |
+| Migration to .NET 6 | todo | - |
+| MediataR as the second option for CQRS | todo | - |
+| OData | todo | - |
+| SignalR | todo | - |
+| Redis | todo | - |
+| XUnit as default test framework | todo | - |
+| Minimal API - adding a choice between a minimal API and MVC when generating a Web API project | todo | - |
+| Ability to generate a solution without sample code (Orders domain) | todo | - |
+| Sample unit [ ], integration [ ], and End-to-End tests [ ] | todo | - |
+| Add infrastructure.yml file to start the required infrastructure<br/> by docker-compose command | todo | - |
+| ?? Front-End SPA application ?? | todo | - |
+| SQL Databases support (EF): [**X**] PostgreSQL,<br/> [ ] MS SQL Server | on hold | 2020-09-28 |
+| Docker compose: *[**X**] API, [**X**] MongoDB, [ ] Redis, <br/>[**X**] PostgreSQL,[**X**] PgAdmin, [ ] Elasticsearch, <br/> [ ] Kibana, [ ] Seq | on hold | 2020-09-06 [1] <br/> 2020-09-28 [2] |
+| Serilog | Completed | 2021-10-25 |
+| Add Shared project as optional | Completed | 2020-10-19 |
+| Error handling | Completed | 2020-10-05 [1] <br/> 2021-10-25 [2] |
+| MongoDB as optional | Completed | 2020-09-02 |
 | Selection of the test framework (NUnit, XUnit)| Completed | 2020-09-02 |
-| Front-End SPA application | todo | - |
+| Restore on create | Completed | 2020-09-02 |
 
 **NOTE:** If you have a proposal for a new feature or a change to the existing code, please don't hesitate to report it. All proposals will be considered.

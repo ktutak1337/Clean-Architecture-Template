@@ -21,9 +21,9 @@ namespace CleanArchitectureTemplate.Core.Aggregates
 
         public OrderId Id { get; private set; }
         public BuyerId BuyerId { get; private set; }
-        public Address Address { get; private set; }
+        public Address ShippingAddress { get; private set; }
         public OrderStatus Status { get; private set; }
-        public decimal TotalPrice { get; private set; }
+        public Amount TotalPrice { get; private set; }
         public DateTime CreatedAt { get; private set; }
 
         public IEnumerable<OrderItem> Items
@@ -34,11 +34,11 @@ namespace CleanArchitectureTemplate.Core.Aggregates
 
         private Order() { }
 
-        public Order(OrderId id, BuyerId buyerId, Address address, IEnumerable<OrderItem> orderItems, OrderStatus status, int? version = null)
+        public Order(OrderId id, BuyerId buyerId, Address shippingAddress, IEnumerable<OrderItem> orderItems, OrderStatus status, int? version = null)
         {
             Id = id;
             BuyerId = buyerId;
-            Address = address;
+            ShippingAddress = shippingAddress;
             Items = orderItems ?? throw new EmptyOrderItemsException(id);
             Status = status;
             TotalPrice = Items.Sum(item => item.Price);
@@ -60,17 +60,18 @@ namespace CleanArchitectureTemplate.Core.Aggregates
             }
 
             _items.Add(newItem);
+
             AddDomainEvent(new OrderItemAdded(newItem));
         }
 
-        public void UpdateOrder(Order order)
+        public void Update(Guid buyerId, Address shippingAddress, IEnumerable<OrderItem> items, OrderStatus status)
         {
-            BuyerId = order.BuyerId;
-            Address = order.Address;
-            Status = order.Status;
-            TotalPrice = order.TotalPrice;
+            BuyerId = buyerId;
+            ShippingAddress = shippingAddress;
+            Items = items;
+            Status = status;
 
-            AddDomainEvent(new OrderUpdated(order));
+            AddDomainEvent(new OrderUpdated(this));
         }
     }
 }

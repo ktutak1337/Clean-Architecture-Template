@@ -5,6 +5,7 @@ using CleanArchitectureTemplate.Shared.Dispatchers;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 #endif
+using System;
 using System.Threading.Tasks;
 using CleanArchitectureTemplate.Application.Commands;
 #if (swagger)
@@ -33,7 +34,7 @@ namespace CleanArchitectureTemplate.Api.Controllers
         /// <response code="404">The HTTP `404 [Not Found]` response code indicates that the server can not find the requested resource.</response>
         [ProducesResponseType(typeof(OrderDto), StatusCodes.Status200OK)]
         #endif
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get([FromRoute] GetOrder query)
             => Select(await Dispatcher.QueryAsync(query));
 
@@ -64,6 +65,23 @@ namespace CleanArchitectureTemplate.Api.Controllers
             await Dispatcher.SendAsync(command);
 
             return CreatedAtAction(nameof(Get), new { Id = command.Id }, command.Id);
+        }
+
+        #if (swagger)
+        /// <summary>
+        /// Updates the details of a specific order.
+        /// </summary>
+        /// <response code="204">The HTTP `204 [No Content]` response code indicates that the server successfully processed the request and is not returning any content.</response>
+        /// <response code="400">The HTTP `400 [Bad Request]` response code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.</response>
+        /// <response code="404">The HTTP `404 [Not Found]` response code indicates that the server can not find the requested resource.</response>
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        #endif
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> Put(Guid id, UpdateOrder command)
+        {
+            await Dispatcher.SendAsync(new UpdateOrder(id, command.BuyerId, command.ShippingAddress, command.Items, command.Status));
+
+            return NoContent();
         }
     }
 }

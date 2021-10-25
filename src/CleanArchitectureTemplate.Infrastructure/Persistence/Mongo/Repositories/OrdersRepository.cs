@@ -15,7 +15,7 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Repositorie
     {
         private readonly IMongoRepository<OrderDocument, Guid> _repository;
 
-        public OrdersRepository(IMongoRepository<OrderDocument, Guid> repository) 
+        public OrdersRepository(IMongoRepository<OrderDocument, Guid> repository)
             => _repository = repository;
 
         public async Task<Order> GetAsync(Guid id)
@@ -26,14 +26,11 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Repositorie
             => (await _repository.FindAsync(_ => true))
                 ?.Select(order => order.AsEntity());
 
-        public async Task AddAsync(Order order) 
+        public async Task AddAsync(Order order)
             => await _repository.AddAsync(order.AsDocument());
 
         public async Task UpdateAsync(Order order)
             => await _repository.UpdateAsync(order.AsDocument());
-
-        public async Task DeleteAsync(Guid id)
-            => await _repository.DeleteAsync(id);
     }
 }
 #endif

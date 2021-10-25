@@ -13,7 +13,7 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Models
     {
         public Guid Id { get; set; }
         public Guid BuyerId { get; set; }
-        public AddressModel Address { get; set; }
+        public AddressModel ShippingAddress { get; set; }
         public OrderStatus Status { get; set; }
         public decimal TotalPrice { get; set; }
         public DateTime CreatedAt { get; set; }
