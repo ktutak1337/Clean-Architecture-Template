@@ -7,13 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!--#if (xunit)-->
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
-    <!--#endif-->
-    <!--#if (!xunit)-->
+    <!--#if (nunit)-->
     <PackageReference Include="nunit" Version="3.13.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+    <!--#endif-->
+    <!--#if (!nunit)-->
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
     <!--#endif-->
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="5.0.3" />
