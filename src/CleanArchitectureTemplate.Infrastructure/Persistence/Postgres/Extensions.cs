@@ -5,7 +5,9 @@ using CleanArchitectureTemplate.Infrastructure.Persistence.EF;
 using CleanArchitectureTemplate.Shared;
 using CleanArchitectureTemplate.Shared.Persistence.EF;
 #endif
+#if (!noSampleCode)
 using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Models;
+#endif
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,7 +29,9 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.Postgres
 
         public static IServiceCollection AddPostgresRepositories(this IServiceCollection services)
         {
+            #if (!noSampleCode)
             services.AddEntityFrameworkRepository<OrderModel, Guid, CleanArchitectureTemplateDbContext>();
+            #endif
 
             return services;
         }
