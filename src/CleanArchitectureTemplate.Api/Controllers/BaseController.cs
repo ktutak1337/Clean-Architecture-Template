@@ -1,7 +1,7 @@
 #if (shared)
 using CleanArchitectureTemplate.Shared.Dispatchers;
 #else
-using CleanArchitectureTemplate.Application.Services;
+using CleanArchitectureTemplate.Application.Dispatchers;
 #endif
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +16,7 @@ namespace CleanArchitectureTemplate.Api.Controllers
     {
         protected readonly IDispatcher Dispatcher;
 
-        protected BaseController(IDispatcher dispatcher) 
+        protected BaseController(IDispatcher dispatcher)
             => Dispatcher = dispatcher;
 
         protected IActionResult Select<TData>(TData data)

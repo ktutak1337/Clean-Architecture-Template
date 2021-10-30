@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using CleanArchitectureTemplate.Application.Services;
+using CleanArchitectureTemplate.Application.Dispatchers;
 using Convey.CQRS.Commands;
 using Convey.CQRS.Queries;
 
-namespace CleanArchitectureTemplate.Infrastructure.Services
+namespace CleanArchitectureTemplate.Infrastructure.Dispatchers
 {
     public class Dispatcher : IDispatcher
     {
@@ -13,10 +13,10 @@ namespace CleanArchitectureTemplate.Infrastructure.Services
         public Dispatcher(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher)
             => (_commandDispatcher, _queryDispatcher) = (commandDispatcher, queryDispatcher);
 
-        public async Task<TResult> QueryAsync<TResult>(IQuery<TResult> query) 
+        public async Task<TResult> QueryAsync<TResult>(IQuery<TResult> query)
             => await _queryDispatcher.QueryAsync<TResult>(query);
 
-        public async Task SendAsync<TCommand>(TCommand command) where TCommand : class, ICommand 
+        public async Task SendAsync<TCommand>(TCommand command) where TCommand : class, ICommand
             => await _commandDispatcher.SendAsync(command);
     }
 }

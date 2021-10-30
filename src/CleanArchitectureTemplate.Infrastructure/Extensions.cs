@@ -1,6 +1,6 @@
 using System;
 #if (!shared)
-using CleanArchitectureTemplate.Application.Services;
+using CleanArchitectureTemplate.Application.Dispatchers;
 #endif
 #if (!noSampleCode)
 using CleanArchitectureTemplate.Core.Repositories;
@@ -12,7 +12,7 @@ using CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Repositories;
 #if (!shared)
 using CleanArchitectureTemplate.Infrastructure.Contexts;
 using CleanArchitectureTemplate.Infrastructure.Exceptions.Definition;
-using CleanArchitectureTemplate.Infrastructure.Services;
+using CleanArchitectureTemplate.Infrastructure.Dispatchers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
@@ -81,6 +81,9 @@ namespace CleanArchitectureTemplate.Infrastructure
                 .AddInfrastructure();
 
             services.AddSingleton(services.GetOptions<AppSettings>("app"));
+        #if (!shared)
+            services.AddSingleton<IDispatcher, Dispatcher>();
+        #endif
 
             return services;
         }
@@ -94,9 +97,6 @@ namespace CleanArchitectureTemplate.Infrastructure
             builder.Services.AddTransient<IOrdersRepository, OrdersRepository>();
             #endif
         #endif
-            #if (!shared)
-            builder.Services.AddTransient<IDispatcher, Dispatcher>();
-            #endif
             #if (mongo && !noSampleCode)
             builder
                 .AddMongo()
