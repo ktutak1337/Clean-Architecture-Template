@@ -6,7 +6,7 @@ services:
     image: mongo
     container_name: mongo
     restart: unless-stopped
-    environment:
+    environment:                                    # If you disable authentication then you need to remove username and password from connection string in appsettings.
       - MONGO_INITDB_ROOT_USERNAME=root             # set your container root username
       - MONGO_INITDB_ROOT_PASSWORD=secret           # set your container root password
     ports:
