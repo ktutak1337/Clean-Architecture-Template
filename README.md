@@ -40,8 +40,7 @@ The template has the following additional options:
 
 | Options                  | Default (bool) | Description |
 | ------------------------ | -------- | -------- |
-|-d \| --docker | false | Creates Dockerfile, .dockerignore, and appsettings.docker.json files. |
-|-dc \| --docker-compose | false | Creates docker-compose scripts for selected infrastructure elements (MongoDB, etc.). The `--docker` option is **required**, otherwise no scripts will be generated. |
+|-d \| --docker | false | If specified, creates Dockerfile, .dockerignore, appsettings.docker.json files, and docker-compose scripts for selected infrastructure elements (MongoDB, etc.). |
 |-g \| --git| false | Creates Git repository and .gitignore file. |
 |-gi \| --gitignore | false | Creates .gitignore file. |
 |-p \| --postgres | false | If specified, adds PostgreSQL to the solution. |
@@ -142,6 +141,7 @@ List of features to add:
 | GraphQL | todo | - |
 | Migration to .NET 6 | todo | - |
 | MediataR as the second option for CQRS | todo | - |
+| Remove `--docker-compose` option from template | Completed | 2021-10-02 |
 | OData | todo | - |
 | SignalR | todo | - |
 | Redis | todo | - |
