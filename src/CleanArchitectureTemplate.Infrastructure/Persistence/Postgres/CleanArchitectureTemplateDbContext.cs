@@ -1,20 +1,24 @@
 using System;
+#if (!noSampleCode)
 using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Models;
+#endif
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitectureTemplate.Infrastructure.Persistence.Postgres
 {
     public class CleanArchitectureTemplateDbContext : DbContext
     {
+    #if (!noSampleCode)
         public DbSet<OrderModel> Orders { get; set; }
         public DbSet<BuyerModel> Buyers { get; set; }
         public DbSet<OrderItemModel> OrderItems { get; set; }
-
+    #endif
         public CleanArchitectureTemplateDbContext(DbContextOptions<CleanArchitectureTemplateDbContext> options)
             : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+        #if (!noSampleCode)
             modelBuilder.Entity<OrderModel>(model =>
             {
                 model.ToTable("Order");
@@ -43,6 +47,7 @@ namespace CleanArchitectureTemplate.Infrastructure.Persistence.Postgres
                 model.OwnsOne(x => x.Address);
                 model.Property<DateTime>("CreatedAt");
             });
+        #endif
         }
     }
 }

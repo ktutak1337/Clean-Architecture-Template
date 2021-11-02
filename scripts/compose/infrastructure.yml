@@ -1,0 +1,122 @@
+version: "3.7"
+
+services:
+// ---#if(mongo)
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: unless-stopped
+    environment:                                    # If you disable authentication then you need to remove username and password from connection string in appsettings.
+      - MONGO_INITDB_ROOT_USERNAME=root             # set your container root username
+      - MONGO_INITDB_ROOT_PASSWORD=secret           # set your container root password
+    ports:
+      - 27017:27017
+    networks:
+      - CleanArchitectureTemplate
+    volumes:
+      - mongo:/data/db
+
+// ---#endif
+// ---#if(postgres)
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: unless-stopped
+    shm_size: '4gb'
+    environment:
+      #- POSTGRES_HOST_AUTH_METHOD=trust                   # If you set POSTGRES_HOST_AUTH_METHOD to trust, then POSTGRES_PASSWORD is not required.
+      - POSTGRES_USER=root                                 # set your container root username
+      - POSTGRES_PASSWORD=secret                           # set your container root password
+      - POSTGRES_DB=CleanArchitectureTemplate-docker       # set your container database name
+    ports:
+      - 5432:5432
+    networks:
+      - CleanArchitectureTemplate
+    volumes:
+      - postgres:/var/lib/postgresql/data/
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: unless-stopped
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@email.com              # set your container default email
+      - PGADMIN_DEFAULT_PASSWORD=secret                    # set your container default password
+    ports:
+      - 5050:80
+    networks:
+      - CleanArchitectureTemplate
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+
+// ---#endif
+// ---#if(serilogElastic)
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.1
+    container_name: es01
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es01:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - CleanArchitectureTemplate
+
+  kib01:
+    image: docker.elastic.co/kibana/kibana:7.15.1
+    container_name: kib01
+    ports:
+      - 5601:5601
+    environment:
+      ELASTICSEARCH_URL: http://es01:9200
+      ELASTICSEARCH_HOSTS: http://es01:9200
+    networks:
+      - CleanArchitectureTemplate
+
+// ---#endif
+// ---#if(serilogSeq)
+  seq:
+    image: datalust/seq 
+    container_name: seq
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+    networks:
+      - CleanArchitectureTemplate
+    ports:
+      - 5341:80
+    volumes: 
+      - seq:/data
+
+// ---#endif
+networks:
+  CleanArchitectureTemplate:
+    name: CleanArchitectureTemplate-network
+
+volumes:
+// ---#if(mongo)
+  mongo:
+    driver: local
+// ---#endif
+// ---#if(postgres)
+  postgres:
+    driver: local
+  pgadmin:
+    driver: local
+// ---#endif
+// ---#if(serilogSeq)
+  seq:
+    driver: local
+// ---#endif
+// ---#if(serilogElastic)
+  es01:
+    driver: local
+// ---#endif

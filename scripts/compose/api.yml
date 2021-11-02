@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  api:
+    build: ../../                                   # or use image: name_your_image
+    container_name: CleanArchitectureTemplate-api
+    restart: unless-stopped
+    ports:
+      - '5000:5000'
+    networks:
+      - CleanArchitectureTemplate
+
+networks:
+  CleanArchitectureTemplate:
+    name: CleanArchitectureTemplate-network
+    external: true

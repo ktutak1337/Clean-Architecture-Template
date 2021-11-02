@@ -13,7 +13,7 @@ using CleanArchitectureTemplate.Application.DTOs;
 #endif
 using CleanArchitectureTemplate.Application.Queries;
 #if (!shared)
-using CleanArchitectureTemplate.Application.Services;
+using CleanArchitectureTemplate.Application.Dispatchers;
 #endif
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,16 +1,18 @@
 using System;
 #if (!shared)
-using CleanArchitectureTemplate.Application.Services;
+using CleanArchitectureTemplate.Application.Dispatchers;
 #endif
+#if (!noSampleCode)
 using CleanArchitectureTemplate.Core.Repositories;
-#if (mongo)
+#endif
+#if (mongo && !noSampleCode)
 using CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Documents;
 using CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Repositories;
 #endif
 #if (!shared)
 using CleanArchitectureTemplate.Infrastructure.Contexts;
 using CleanArchitectureTemplate.Infrastructure.Exceptions.Definition;
-using CleanArchitectureTemplate.Infrastructure.Services;
+using CleanArchitectureTemplate.Infrastructure.Dispatchers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
@@ -27,7 +29,7 @@ using CleanArchitectureTemplate.Infrastructure.Logging;
 #if (shared && serilog)
 using CleanArchitectureTemplate.Shared.Logging;
 #endif
-#if (!mongo && !postgres)
+#if (!mongo && !postgres && !noSampleCode)
 using CleanArchitectureTemplate.Infrastructure.Repositories;
 #endif
 #if (swagger && !shared)
@@ -42,10 +44,11 @@ using Microsoft.Extensions.DependencyInjection;
 using CleanArchitectureTemplate.Application;
 #if (shared && postgres)
 using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres;
-using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Repositories;
 #endif
 #if (postgres && !shared)
 using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres;
+#endif
+#if (postgres && !noSampleCode)
 using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Repositories;
 #endif
 
@@ -68,7 +71,7 @@ namespace CleanArchitectureTemplate.Infrastructure
         #if (postgres)
             services.AddPostgres();
         #endif
-        #if (mongo && postgres)
+        #if (mongo && postgres && !noSampleCode)
             services.AddTransient<IOrdersRepository, Persistence.Postgres.Repositories.OrdersRepository>();
         #endif
 
@@ -78,28 +81,32 @@ namespace CleanArchitectureTemplate.Infrastructure
                 .AddInfrastructure();
 
             services.AddSingleton(services.GetOptions<AppSettings>("app"));
+        #if (!shared)
+            services.AddSingleton<IDispatcher, Dispatcher>();
+        #endif
 
             return services;
         }
 
         public static IConveyBuilder AddInfrastructure(this IConveyBuilder builder)
         {
+        #if (!noSampleCode)
             #if (mongo && postgres)
             builder.Services.AddTransient<IOrdersRepository, Persistence.Mongo.Repositories.OrdersRepository>();
             #else
             builder.Services.AddTransient<IOrdersRepository, OrdersRepository>();
             #endif
-            #if (!shared)
-            builder.Services.AddTransient<IDispatcher, Dispatcher>();
-            #endif
-            #if (mongo)
-            return builder
+        #endif
+            #if (mongo && !noSampleCode)
+            builder
                 .AddMongo()
                 .AddMongoRepository<OrderDocument, Guid>("orders");
-            #else
+            #elif(mongo && noSampleCode)
+            builder
+                .AddMongo();
+            #endif
 
             return builder;
-            #endif
         }
 
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
@@ -110,16 +117,16 @@ namespace CleanArchitectureTemplate.Infrastructure
 
         #if (swagger)
             app.UseSwaggerDocs();
-        #endif
 
+        #endif
             app.UseHttpsRedirection();
 
             app.UseContext();
 
         #if (serilog)
             app.UseLogging();
+
         #endif
-        
             app.UseRouting();
 
             app.UseAuthorization();

@@ -1,31 +1,31 @@
-#if (xunit)
-using Xunit;
-#else
+#if (nunit)
 using NUnit.Framework;
+#else
+using Xunit;
 #endif
 
 namespace CleanArchitectureTemplate.Tests.EndToEnd
 {
     public class Tests
     {
-        #if (!xunit)
+        #if (nunit)
         [SetUp]
         public void Setup()
         {
         }
         #endif
 
-        #if (xunit)
-        [Fact]
-        #else
+        #if (nunit)
         [Test]
+        #else
+        [Fact]
         #endif
         public void Test1()
         {
-            #if (xunit)
-            Assert.True(true);
-            #else
+            #if (nunit)
             Assert.Pass();
+            #else
+            Assert.True(true);
             #endif
         }
     }

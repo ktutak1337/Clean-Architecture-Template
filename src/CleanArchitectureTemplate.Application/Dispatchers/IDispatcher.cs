@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Convey.CQRS.Commands;
 using Convey.CQRS.Queries;
 
-namespace CleanArchitectureTemplate.Application.Services
+namespace CleanArchitectureTemplate.Application.Dispatchers
 {
     public interface IDispatcher
     {
