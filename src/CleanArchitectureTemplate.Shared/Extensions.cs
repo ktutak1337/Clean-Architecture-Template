@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+#if(!mediatr)
 using CleanArchitectureTemplate.Shared.Dispatchers;
+#endif
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -15,7 +17,9 @@ namespace CleanArchitectureTemplate.Shared
 
         public static IServiceCollection AddShared(this IServiceCollection services)
         {
+            #if(!mediatr)
             services.AddTransient<IDispatcher, Dispatcher>();
+            #endif
 
             return services;
         }

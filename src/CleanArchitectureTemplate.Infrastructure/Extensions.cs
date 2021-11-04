@@ -1,6 +1,7 @@
 using System;
-#if (!shared)
+#if (!shared && !mediatr)
 using CleanArchitectureTemplate.Application.Dispatchers;
+using CleanArchitectureTemplate.Infrastructure.Dispatchers;
 #endif
 #if (!noSampleCode)
 using CleanArchitectureTemplate.Core.Repositories;
@@ -12,7 +13,6 @@ using CleanArchitectureTemplate.Infrastructure.Persistence.Mongo.Repositories;
 #if (!shared)
 using CleanArchitectureTemplate.Infrastructure.Contexts;
 using CleanArchitectureTemplate.Infrastructure.Exceptions.Definition;
-using CleanArchitectureTemplate.Infrastructure.Dispatchers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
@@ -35,8 +35,8 @@ using CleanArchitectureTemplate.Infrastructure.Repositories;
 #if (swagger && !shared)
 using CleanArchitectureTemplate.Infrastructure.Swagger;
 #endif
-using Convey;
 #if (mongo)
+using Convey;
 using Convey.Persistence.MongoDB;
 #endif
 using Microsoft.AspNetCore.Builder;
@@ -50,6 +50,9 @@ using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres;
 #endif
 #if (postgres && !noSampleCode)
 using CleanArchitectureTemplate.Infrastructure.Persistence.Postgres.Repositories;
+#endif
+#if(mediatr)
+using MediatR;
 #endif
 
 namespace CleanArchitectureTemplate.Infrastructure
@@ -71,43 +74,55 @@ namespace CleanArchitectureTemplate.Infrastructure
         #if (postgres)
             services.AddPostgres();
         #endif
+        #if (mediatr)
+            services.AddMediatR(typeof(Extensions).Assembly, typeof(Application.Extensions).Assembly);
+        #endif
         #if (mongo && postgres && !noSampleCode)
             services.AddTransient<IOrdersRepository, Persistence.Postgres.Repositories.OrdersRepository>();
         #endif
-
+            #if (mongo && !mediatr)
             services
                 .AddConvey()
                 .AddApplication()
                 .AddInfrastructure();
+            #endif
+            #if (mongo && mediatr)
+            services
+                .AddConvey()
+                .AddInfrastructure();
+            #endif
 
             services.AddSingleton(services.GetOptions<AppSettings>("app"));
-        #if (!shared)
+        #if (!shared && !mediatr)
             services.AddSingleton<IDispatcher, Dispatcher>();
+        #endif
+
+        #if (!noSampleCode)
+            #if (mongo && postgres)
+            services.AddTransient<IOrdersRepository, Persistence.Mongo.Repositories.OrdersRepository>();
+            #else
+            services.AddTransient<IOrdersRepository, OrdersRepository>();
+            #endif
         #endif
 
             return services;
         }
 
+        #if (mongo)
         public static IConveyBuilder AddInfrastructure(this IConveyBuilder builder)
         {
-        #if (!noSampleCode)
-            #if (mongo && postgres)
-            builder.Services.AddTransient<IOrdersRepository, Persistence.Mongo.Repositories.OrdersRepository>();
-            #else
-            builder.Services.AddTransient<IOrdersRepository, OrdersRepository>();
-            #endif
-        #endif
-            #if (mongo && !noSampleCode)
+            #if (!noSampleCode)
             builder
                 .AddMongo()
                 .AddMongoRepository<OrderDocument, Guid>("orders");
-            #elif(mongo && noSampleCode)
+            #else
             builder
                 .AddMongo();
             #endif
 
             return builder;
         }
+        #endif
 
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
         {

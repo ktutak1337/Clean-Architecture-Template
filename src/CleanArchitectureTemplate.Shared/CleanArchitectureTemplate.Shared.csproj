@@ -5,10 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!--#if (mediatr)-->
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <!--#else-->
     <PackageReference Include="Convey" Version="0.5.512" />
     <PackageReference Include="Convey.CQRS.Commands" Version="0.5.512" />
     <PackageReference Include="Convey.CQRS.Events" Version="0.5.512" />
     <PackageReference Include="Convey.CQRS.Queries" Version="0.5.512" />
+    <!--#endif-->
     <!--#if (postgres)-->
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.10" />
