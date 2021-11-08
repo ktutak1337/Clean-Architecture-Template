@@ -1,4 +1,4 @@
-#if (shared)
+#if (shared && !mediatr)
 using CleanArchitectureTemplate.Shared.Dispatchers;
 #endif
 #if (swagger)
@@ -12,7 +12,10 @@ using CleanArchitectureTemplate.Application.Commands;
 using CleanArchitectureTemplate.Application.DTOs;
 #endif
 using CleanArchitectureTemplate.Application.Queries;
-#if (!shared)
+#if(mediatr)
+using MediatR;
+#endif
+#if (!shared && !mediatr)
 using CleanArchitectureTemplate.Application.Dispatchers;
 #endif
 using Microsoft.AspNetCore.Mvc;
@@ -21,8 +24,13 @@ namespace CleanArchitectureTemplate.Api.Controllers
 {
     public class OrdersController : BaseController
     {
+        #if(mediatr)
+        public OrdersController(IMediator mediator)
+            : base(mediator) { }
+        #else
         public OrdersController(IDispatcher dispatcher)
             : base(dispatcher) { }
+        #endif
 
         #if (swagger)
         /// <summary>
@@ -36,7 +44,11 @@ namespace CleanArchitectureTemplate.Api.Controllers
         #endif
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get([FromRoute] GetOrder query)
+            #if(mediatr)
+            => Select(await Mediator.Send(query));
+            #else
             => Select(await Dispatcher.QueryAsync(query));
+            #endif
 
         #if (swagger)
         /// <summary>
@@ -49,7 +61,11 @@ namespace CleanArchitectureTemplate.Api.Controllers
         #endif
         [HttpGet]
         public async Task<IActionResult> Get([FromRoute] GetOrders query)
+            #if(mediatr)
+            => Select(await Mediator.Send(query));
+            #else
             => Select(await Dispatcher.QueryAsync(query));
+            #endif
 
         #if (swagger)
         /// <summary>
@@ -62,7 +78,11 @@ namespace CleanArchitectureTemplate.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(CreateOrder command)
         {
+            #if(mediatr)
+            await Mediator.Send(command);
+            #else
             await Dispatcher.SendAsync(command);
+            #endif
 
             return CreatedAtAction(nameof(Get), new { Id = command.Id }, command.Id);
         }
@@ -79,7 +99,11 @@ namespace CleanArchitectureTemplate.Api.Controllers
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> Put(Guid id, UpdateOrder command)
         {
+            #if(mediatr)
+            await Mediator.Send(new UpdateOrder(id, command.BuyerId, command.ShippingAddress, command.Items, command.Status));
+            #else
             await Dispatcher.SendAsync(new UpdateOrder(id, command.BuyerId, command.ShippingAddress, command.Items, command.Status));
+            #endif
 
             return NoContent();
         }

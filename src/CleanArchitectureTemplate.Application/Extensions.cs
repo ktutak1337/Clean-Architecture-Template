@@ -1,13 +1,22 @@
 using System.Text.RegularExpressions;
+#if(!mediatr)
 using Convey;
 using Convey.CQRS.Commands;
 using Convey.CQRS.Events;
 using Convey.CQRS.Queries;
+#endif
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CleanArchitectureTemplate.Application
 {
     public static class Extensions
     {
+        public static IServiceCollection AddApplication(this IServiceCollection services)
+        {
+            return services;
+        }
+
+        #if(!mediatr)
         public static IConveyBuilder AddApplication(this IConveyBuilder builder)
             => builder
                 .AddCommandHandlers()
@@ -16,6 +25,7 @@ namespace CleanArchitectureTemplate.Application
                 .AddInMemoryCommandDispatcher()
                 .AddInMemoryEventDispatcher()
                 .AddInMemoryQueryDispatcher();
+        #endif
         #if (!shared)
         public static string ToSnakeCase(this string input)
             => Regex.Replace(

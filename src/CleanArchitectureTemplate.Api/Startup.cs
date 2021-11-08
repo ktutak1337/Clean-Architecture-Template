@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using CleanArchitectureTemplate.Application;
 using CleanArchitectureTemplate.Infrastructure;
 using Microsoft.AspNetCore.Http;
 
@@ -17,6 +18,7 @@ namespace CleanArchitectureTemplate.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddApplication();
             services.AddInfrastructure();
         }
 
