@@ -2,7 +2,7 @@
 ![Build & Tests](https://github.com/ktutak1337/Clean-Architecture-Template/workflows/Build%20&%20Tests/badge.svg?branch=master)
 [![NuGet Package](https://img.shields.io/badge/.NET%20-5.0-blue.svg)](https://dotnet.microsoft.com/download/dotnet-core/5.0)
 [![NuGet Package](https://img.shields.io/badge/.NET%20Core-3.1-blue.svg)](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-[![NuGet Package](https://img.shields.io/badge/NuGet-5.0.22-blue.svg)](https://www.nuget.org/packages/Clean.Architecture.Template)
+[![NuGet Package](https://img.shields.io/badge/NuGet-5.0.24-blue.svg)](https://www.nuget.org/packages/Clean.Architecture.Template)
 [![GitHub license](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/ktutak1337/Clean-Architecture-Template/blob/master/LICENSE.md)
 
 This is a configurable template for creating .NET Core Web API projects following the principles of Clean Architecture and Domain-driven design approach. The template is available as a [NuGet package](https://www.nuget.org/packages/Clean.Architecture.Template).
@@ -10,7 +10,7 @@ This is a configurable template for creating .NET Core Web API projects followin
 # Installation
 The easiest way to get started with the template is to install it by executing the following command:
 ``` csharp
-~$ dotnet new --install Clean.Architecture.Template::5.0.22
+~$ dotnet new --install Clean.Architecture.Template::5.0.24
 ```
 When that command is executed, the `cleanarch` template will appear on the list of available templates for the `dotnet new` command.<br/>
 
@@ -55,6 +55,7 @@ The template has the following additional options:
 |-sw \| --swagger | false | Adds the Swagger documentation. |
 |-t \| --tests | true | Creates test projects: EndToEnd, Integration, and Unit. [XUnit is the default test framework] |
 |--no-sample | false | If specified, does not generate sample code for order domain. |
+|-me \|--mediatr | false | If specified, Adds MediatR library to create and process commands, queries, and events by CQRS concept (By default is Convey library). |
 |-nu \| --nunit | false | If specified, creates test projects: EndToEnd, Integration, and Unit based on the NUnit Framework. [XUnit is the default test framework] |
 
 #### examples
@@ -149,7 +150,6 @@ List of features to add:
 | Elasticsearch | todo | - |
 | GraphQL | todo | - |
 | Migration to .NET 6 | todo | - |
-| MediataR as the second option for CQRS | todo | - |
 | OData | todo | - |
 | SignalR | todo | - |
 | Redis | todo | - |
@@ -158,7 +158,8 @@ List of features to add:
 | ?? Front-End SPA application ?? | todo | - |
 | SQL Databases support (EF): [**X**] PostgreSQL, [ ] MS SQL Server | on hold | 2020-09-28 |
 | Docker compose: [**X**] API, [**X**] MongoDB, [**X**] PostgreSQL, [ ] MS SQL Server, [**X**] Elasticsearch,<br/>[ ] Redis, [**X**] PgAdmin, [**X**] Kibana, [**X**] Seq | on hold | 2020-09-06 [1] <br/> 2020-09-28 [2] <br/> 2021-11-02 [3] |
-| Remove `--docker-compose` option from template | Completed | 2021-10-02 |
+| MediataR as the second option for CQRS | Completed | 2020-11-08 |
+| Remove `--docker-compose` option from template | Completed | 2021-11-02 |
 | Ability to generate a solution without sample code (Orders domain) | Completed | 2021-11-02 |
 | Add infrastructure.yml file to start the required infrastructure<br/> by docker-compose command | Completed | 2021-11-02 |
 | XUnit as default test framework | Completed | 2021-11-02 |
