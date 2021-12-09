@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,12 +12,12 @@
     <!--#if (mediatr && !shared)-->
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <!--#else-->
-    <PackageReference Include="Convey" Version="0.5.512" />
-    <PackageReference Include="Convey.CQRS.Commands" Version="0.5.512" />
-    <PackageReference Include="Convey.CQRS.Events" Version="0.5.512" />
-    <PackageReference Include="Convey.CQRS.Queries" Version="0.5.512" />
+    <PackageReference Include="Convey" Version="0.6.522" />
+    <PackageReference Include="Convey.CQRS.Commands" Version="0.6.522" />
+    <PackageReference Include="Convey.CQRS.Events" Version="0.6.522" />
+    <PackageReference Include="Convey.CQRS.Queries" Version="0.6.522" />
     <!--#endif-->
 
   </ItemGroup>
